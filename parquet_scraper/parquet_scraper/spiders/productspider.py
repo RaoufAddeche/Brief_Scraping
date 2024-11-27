@@ -1,10 +1,22 @@
 import scrapy
 import items
+import json
 
 class ProductSpider(scrapy.Spider):
     name = "productspider"
     allowed_domains = ["boutique-parquet.com"]
     start_urls = ["https://boutique-parquet.com"]
+
+    custom_setting = {
+        "FEEDS": { "products.csv": {"format": "csv", "overwrite": True} }
+    }
+
+    category_list = []
+
+    def read_categories(filename) :
+        with open(filename, 'r') as jsonfile:
+            category_list = json.load(jsonfile)
+
 
     def parse(self, response):
         parent_category_div = response.css("div.level0")

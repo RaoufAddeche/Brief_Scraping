@@ -7,6 +7,12 @@ class CategorySpider(scrapy.Spider):
     name = "categoryspider"
     allowed_domains = ["boutique-parquet.com"]
     start_urls = ["https://boutique-parquet.com"]
+
+    custom_setting = {
+        "FEEDS": {
+            "category.csv": {"format": "csv", "overwrite": True}
+        }
+    }
     
     def parse(self, response):
         root_items = response.css("li.level0")

@@ -17,33 +17,33 @@ productspider = "productspider"
 
 # log_file = os.path.join(log_directory, f"{spider}.log")
 
-# try:
-#     # print(f"Clean the logs in file : {log_file}")
-#     # with open(log_file, 'w') as f:
-#     #     pass
+try:
+    # print(f"Clean the logs in file : {log_file}")
+    # with open(log_file, 'w') as f:
+    #     pass
     
-#     print(f"\nExecute spider : {categoryspider}\n")
+    print(f"\nExecute spider : {categoryspider}\n")
     
-#     execute([
-#         'scrapy',
-#         'crawl',
-#         categoryspider,
-#         '-o',
-#         f'{categoryspider}.csv'
-#         # '-s',
-#         # f'LOG_FILE={log_file}'
-#     ])
+    execute([
+        'scrapy',
+        'crawl',
+        categoryspider,
+        '-o',
+        'category.csv'
+        # '-s',
+        # f'LOG_FILE={log_file}'
+    ])
 
-#     # execute([
-#     #     'scrapy',
-#     #     'crawl',
-#     #     spider
-#     # ])
-#     print(f"\nExtraction {categoryspider} finish.\n")
+    # execute([
+    #     'scrapy',
+    #     'crawl',
+    #     spider
+    # ])
+    print(f"\nExtraction {categoryspider} finish.\n")
     
-# except SystemExit as e:
-#     print(f"\nError, exit script : {e}\n")
-#     pass
+except SystemExit as e:
+    print(f"\nError, exit script : {e}\n")
+    pass
 
 
 try:
@@ -58,7 +58,7 @@ try:
         'crawl',
         productspider,
         '-o',
-        f'{productspider}.csv'
+        'product.csv'
         # '-s',
         # f'LOG_FILE={log_file}'
     ])
