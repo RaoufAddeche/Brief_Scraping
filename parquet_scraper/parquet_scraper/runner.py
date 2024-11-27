@@ -2,7 +2,9 @@ import os
 from scrapy.cmdline import execute
 
 # spider = "castorama_fr__categories"
-spider = "parquetspider"
+#spider = "parquetspider"
+categoryspider = "categoryspider"
+productspider = "productspider"
 
 #log_directory = f"logs/scraping/{spider}"
 
@@ -20,20 +22,26 @@ try:
     # with open(log_file, 'w') as f:
     #     pass
     
-    print(f"\nExecute spider : {spider}\n")
+    print(f"\nExecute spider : {categoryspider}\n")
     
     execute([
         'scrapy',
         'crawl',
-        spider,
+        categoryspider,
         '-o',
-        f'{spider}.csv'
+        f'{categoryspider}.csv'
         # '-s',
         # f'LOG_FILE={log_file}'
     ])
+
+    # execute([
+    #     'scrapy',
+    #     'crawl',
+    #     spider
+    # ])
     
 except SystemExit as e:
     print(f"\nError, exit script : {e}\n")
     pass
 
-print(f"\nExtraction {spider} finish.\n")
+print(f"\nExtraction {categoryspider} finish.\n")

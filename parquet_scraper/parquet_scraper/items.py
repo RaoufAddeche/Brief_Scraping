@@ -6,7 +6,16 @@
 import scrapy
 
 
-class ParquetScraperItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class CategoryItem(scrapy.Item):
+    name = scrapy.Field()
+    url = scrapy.Field()
+    unique_id = scrapy.Field()
+    parent_category_id = scrapy.Field()
+
+class ProductItem(scrapy.Item):
+    url = scrapy.Field()
+    parent_category_id = scrapy.Field()
+    name = scrapy.Field()
+    unique_id = scrapy.Field()
+    price = scrapy.Field()
+    
