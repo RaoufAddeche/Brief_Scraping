@@ -22,38 +22,23 @@ try:
     # with open(log_file, 'w') as f:
     #     pass
     
-    print(f"\nExecute spider : {categoryspider}\n")
+    # print(f"\nExecute spider : {categoryspider}\n")
     
-    execute([
-        'scrapy',
-        'crawl',
-        categoryspider,
-        '-o',
-        'category.csv'
-        # '-s',
-        # f'LOG_FILE={log_file}'
-    ])
-
     # execute([
     #     'scrapy',
     #     'crawl',
-    #     spider
+    #     categoryspider,
+    #     '-o',
+    #     'category.json'
+    #     # '-s',
+    #     # f'LOG_FILE={log_file}'
     # ])
-    print(f"\nExtraction {categoryspider} finish.\n")
-    
-except SystemExit as e:
-    print(f"\nError, exit script : {e}\n")
-    pass
 
+    # print(f"\nExtraction {categoryspider} finish.\n")
 
-try:
-    # print(f"Clean the logs in file : {log_file}")
-    # with open(log_file, 'w') as f:
-    #     pass
-    
     print(f"\nExecute spider : {productspider}\n")
     
-    execute([
+    execute([ 
         'scrapy',
         'crawl',
         productspider,
@@ -63,11 +48,6 @@ try:
         # f'LOG_FILE={log_file}'
     ])
 
-    # execute([
-    #     'scrapy',
-    #     'crawl',
-    #     spider
-    # ])
     print(f"\nExtraction {productspider} finish.\n")
     
 except SystemExit as e:

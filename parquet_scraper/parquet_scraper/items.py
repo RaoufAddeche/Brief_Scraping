@@ -11,6 +11,7 @@ class CategoryItem(scrapy.Item):
     url = scrapy.Field()
     unique_id = scrapy.Field()
     parent_category_id = scrapy.Field()
+    is_page_list = scrapy.Field()
 
 class ProductItem(scrapy.Item):
     url = scrapy.Field()
