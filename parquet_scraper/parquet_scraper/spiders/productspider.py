@@ -1,6 +1,7 @@
 import scrapy
+import items
 
-class ProductspiderSpider(scrapy.Spider):
+class ProductSpider(scrapy.Spider):
     name = "productspider"
     allowed_domains = ["boutique-parquet.com"]
     start_urls = ["https://boutique-parquet.com"]
@@ -14,6 +15,19 @@ class ProductspiderSpider(scrapy.Spider):
             yield response.follow(next_page_url, callback=self.parse_product)
 
     def parse_product(self, response):
-        product_view = response.css("div.product_view")
+        product_item = items.ProductItem()
+        product_item['url'] = response.url
 
+        name_view = response.xpath("//span[@data-ui-id='page-title-wrapper']")
+        product_item['name'] = name_view.css(" ::text").get()
+
+        for truc in response.css("div.product-view"):
+            if truc ==None :
+                return 
+            
+            sku_view = truc.css(".product .attribute .sku")
+            product_item['unique_id'] = sku_view.css("div.value ::text").get()
+    
+            product_item['price'] = truc.css("span.price ::text").get()
+            yield product_item
 

@@ -3,7 +3,7 @@ import items
 import uuid
 from typing import cast
 
-class CategoryspiderSpider(scrapy.Spider):
+class CategorySpider(scrapy.Spider):
     name = "categoryspider"
     allowed_domains = ["boutique-parquet.com"]
     start_urls = ["https://boutique-parquet.com"]
