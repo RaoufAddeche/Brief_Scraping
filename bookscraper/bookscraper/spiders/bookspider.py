@@ -1,5 +1,6 @@
 import scrapy
 from bookscraper.items import BookItem
+import random
 
 class BookspiderSpider(scrapy.Spider):
     name = "bookspider"
@@ -10,7 +11,11 @@ class BookspiderSpider(scrapy.Spider):
         'FEEDS': {
     'booksdata.json' : {'format': 'json', 'overwrite': True}
         }
-}
+    }
+    
+    #scrapeops.io pour plus de user agent check middleware /settings
+ 
+
 
     def parse(self, response):
         books = response.css('article.product_pod')
@@ -32,6 +37,7 @@ class BookspiderSpider(scrapy.Spider):
             else:
                 next_page_url = 'https://books.toscrape.com/catalogue/' + next_page
             yield response.follow(next_page_url, callback= self.parse)
+
 
 
     def parse_book_page(self,response):

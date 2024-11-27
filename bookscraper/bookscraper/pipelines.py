@@ -54,4 +54,35 @@ class BookscraperPipeline:
     
 
 
-import sqlmodel import
+# from sqlmodel import Field, SQLModel, create_engine, Session, select, col, Relationship, or_
+
+
+# class BookSQL(SQLModel,table=True):
+#     id: int | None= Field(default=None,primary_key=True)
+#     url: str = Field(index=True)
+#     title : str
+#     upc : str
+#     product_type : str 
+#     price_excl_tax : float
+#     price_incl_tax : float
+#     tax: float
+#     availability: int
+#     num_reviews: int
+
+
+# sqlite_file_name = "database.db"
+# sqlite_url = f"sqlite:///{sqlite_file_name}"
+
+# engine = create_engine(sqlite_url, echo= True)
+
+# def create_db_and_tables():
+#     SQLModel.metadata.create_all(engine)
+
+
+# def main():
+#     create_db_and_tables()
+
+# if __name__ == "__main__":
+#     main()
+
+
