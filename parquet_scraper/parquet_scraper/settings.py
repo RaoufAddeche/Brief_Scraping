@@ -13,7 +13,7 @@ SPIDER_MODULES = ["parquet_scraper.spiders"]
 NEWSPIDER_MODULE = "parquet_scraper.spiders"
 
 # FEEDS = {
-#     'categorydata.json' : {'format' : 'json' }
+#      'categories.csv' : {'format' : 'json' }
 # }
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent

@@ -8,7 +8,7 @@ class ProductSpider(scrapy.Spider):
     allowed_domains = ["boutique-parquet.com"]
 
     custom_setting = {
-        # "FEEDS": { "products.csv": {"format": "csv"} }
+        "FEEDS": { "products.csv": {"format": "csv"} }
     }
 
     def start_requests(self):

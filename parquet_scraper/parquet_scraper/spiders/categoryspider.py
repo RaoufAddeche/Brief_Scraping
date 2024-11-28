@@ -9,10 +9,19 @@ class CategorySpider(scrapy.Spider):
     start_urls = ["https://boutique-parquet.com"]
 
     custom_setting = {
-        # "FEEDS": {
-        #     "category.csv": {"format": "csv"}
-        # }
+        "FEEDS": {
+             "categories.csv": {"format": "csv"}
+        }
     }
+
+    def create_category_id(self, url:str) -> str:
+        end_url = url.removeprefix(self.start_urls[0])
+        proto_id = "CATEGORY"
+        for name in end_url.split('/') :
+            if name != "" :
+                proto_id += "_" + name
+
+        return proto_id
     
     def parse(self, response):
         root_items = response.css("li.level0")
@@ -24,8 +33,8 @@ class CategorySpider(scrapy.Spider):
             current_category = items.CategoryItem()
             current_category['name'] = name
             current_category['url'] = url
-            current_category['unique_id'] = str(uuid.uuid4())
-            current_category['parent_category_id'] = "ROOT_CATEGORY"
+            current_category['unique_id'] = self.create_category_id(url)
+            current_category['parent_category_id'] = "MENU_CATEGORY"
             current_category['is_page_list'] = False
             yield current_category
 
@@ -40,7 +49,7 @@ class CategorySpider(scrapy.Spider):
                 child_category['name'] = name
                 child_category['url'] = url
                 child_category['parent_category_id'] = parent_category['unique_id']
-                child_category['unique_id'] = str(uuid.uuid4())
+                child_category['unique_id'] = self.create_category_id(url)
                 child_category['is_page_list'] = True
                 yield child_category
 
