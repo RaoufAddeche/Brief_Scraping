@@ -29,7 +29,8 @@ try:
         'crawl',
         categoryspider,
         '-O',
-        'categories.json'
+        'categories.csv'
+        #'categories.json'
         # '-s',
         # f'LOG_FILE={log_file}'
     ])
