@@ -41,7 +41,7 @@ class CategorySpider(scrapy.Spider):
                 child_category['url'] = url
                 child_category['parent_category_id'] = parent_category['unique_id']
                 child_category['unique_id'] = str(uuid.uuid4())
-                current_category['is_page_list'] = True
+                child_category['is_page_list'] = True
                 yield child_category
 
         

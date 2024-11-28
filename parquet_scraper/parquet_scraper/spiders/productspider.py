@@ -13,9 +13,10 @@ class ProductSpider(scrapy.Spider):
 
     def start_requests(self):
         # print(os.listdir(os.getcwd()))
-        categories = self.load_categories()
-        for cat in categories:
-            if cat["is_page_list"] :
+        self.category_list = self.load_categories()
+        for cat in self.category_list:
+            val = cat.get("is_page_list")
+            if val == True:
                 self.start_urls.append(cat["url"])
 
         for start_url in self.start_urls :
@@ -25,7 +26,7 @@ class ProductSpider(scrapy.Spider):
             )
         
     def load_categories(self) :
-        with open("categorydata.json", "r") as f:
+        with open("category.json", "r") as f:
             return json.load(f)
 
     def parse(self, response):
