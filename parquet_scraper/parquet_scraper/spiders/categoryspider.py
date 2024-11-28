@@ -2,6 +2,7 @@ import scrapy
 import items
 import uuid
 from typing import cast
+from filenamesenum import Filenames
 
 class CategorySpider(scrapy.Spider):
     name = "categoryspider"
@@ -10,14 +11,15 @@ class CategorySpider(scrapy.Spider):
 
     custom_setting = {
         "FEEDS": { 
-            "categories.csv": {"format": "csv"}, #"overwrite" : True },
-            "categories.json": {"format": "json"} #, "overwrite" : True }
+            Filenames.CATEGORIES_CSV.value: {"format": "csv"}, #"overwrite" : True },
+            Filenames.CATEGORIES_JSON.value: {"format": "json"} #, "overwrite" : True }
         }
     }
 
+
     def create_category_id(self, url:str) -> str:
         end_url = url.removeprefix(self.start_urls[0])
-        proto_id = "CATEGORY"
+        proto_id = items.CategoryItem.CATEGORY_PREFIX
         for name in end_url.split('/') :
             if name != "" :
                 proto_id += "_" + name
@@ -35,7 +37,7 @@ class CategorySpider(scrapy.Spider):
             current_category['name'] = name
             current_category['url'] = url
             current_category['unique_id'] = self.create_category_id(url)
-            current_category['parent_category_id'] = "MENU_CATEGORY"
+            current_category['parent_category_id'] = items.CategoryItem.CATEGORY_ROOT
             current_category['is_page_list'] = False
             yield current_category
 

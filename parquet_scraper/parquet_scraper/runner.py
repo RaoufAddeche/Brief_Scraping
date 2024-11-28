@@ -1,5 +1,6 @@
 import os
 from scrapy.cmdline import execute
+from filenamesenum import Filenames
 
 # spider = "castorama_fr__categories"
 #spider = "parquetspider"
@@ -29,9 +30,9 @@ try:
         'crawl',
         categoryspider,
         # '-O',
-        # 'categories.csv'
+        # Filenames.CATEGORIES_CSV.value
         '-O',
-        'categories.json'
+        Filenames.CATEGORIES_JSON.value
         # '-s',
         # f'LOG_FILE={log_file}'
     ])
@@ -45,7 +46,7 @@ try:
     #     'crawl',
     #     productspider,
     #     '-O',
-    #     'products.csv'
+    #      Filenames.PRODUCTS_CSV.value
     #     # '-s',
     #     # f'LOG_FILE={log_file}'
     # ])

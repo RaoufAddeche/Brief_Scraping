@@ -5,4 +5,4 @@ class Filenames(StrEnum) :
     PRODUCTS_JSON = "products.json"
     CATEGORIES_CSV = "categories.csv"
     CATEGORIES_JSON = "categories.json"
-    SQLITE_DB = "database_name.db"
+    SQLITE_DB = "boutique_parquet_data.db"

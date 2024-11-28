@@ -1,7 +1,9 @@
+from parquet_scraper.filenamesenum import Filenames
+
 sku_set = set()
 total_count = 0
 
-with open("product.csv", "r") as read_file :
+with open(Filenames.PRODUCTS_CSV.value, "r") as read_file :
     for line in read_file.readlines() :
         total_count +=1
         fields = line.split(',')
