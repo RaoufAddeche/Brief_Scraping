@@ -1,5 +1,5 @@
 import scrapy
-import items
+import parquet_scraper.items as items
 import json
 import os
 
