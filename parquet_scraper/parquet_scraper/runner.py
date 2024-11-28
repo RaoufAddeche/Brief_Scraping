@@ -28,9 +28,10 @@ try:
         'scrapy',
         'crawl',
         categoryspider,
+        # '-O',
+        # 'categories.csv'
         '-O',
-        'categories.csv'
-        #'categories.json'
+        'categories.json'
         # '-s',
         # f'LOG_FILE={log_file}'
     ])

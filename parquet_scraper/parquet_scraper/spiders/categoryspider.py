@@ -9,8 +9,9 @@ class CategorySpider(scrapy.Spider):
     start_urls = ["https://boutique-parquet.com"]
 
     custom_setting = {
-        "FEEDS": {
-             "categories.csv": {"format": "csv"}
+        "FEEDS": { 
+            "categories.csv": {"format": "csv"}, #"overwrite" : True },
+            "categories.json": {"format": "json"} #, "overwrite" : True }
         }
     }
 
