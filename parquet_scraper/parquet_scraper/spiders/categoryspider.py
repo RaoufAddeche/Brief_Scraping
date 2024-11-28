@@ -1,7 +1,6 @@
 import scrapy
-import items
+import parquet_scraper.items as items
 import uuid
-from typing import cast
 
 class CategorySpider(scrapy.Spider):
     name = "categoryspider"
@@ -9,9 +8,9 @@ class CategorySpider(scrapy.Spider):
     start_urls = ["https://boutique-parquet.com"]
 
     custom_setting = {
-        # "FEEDS": {
-        #     "category.csv": {"format": "csv"}
-        # }
+        "FEEDS": {
+            "category.csv": {"format": "csv"}        
+        }
     }
     
     def parse(self, response):
@@ -27,8 +26,10 @@ class CategorySpider(scrapy.Spider):
             current_category['unique_id'] = str(uuid.uuid4())
             current_category['parent_category_id'] = "ROOT_CATEGORY"
             current_category['is_page_list'] = False
+
             yield current_category
 
+            
             parent_category = current_category
             parent_category_div = root_item.css("div.level0")
             child_category_items = parent_category_div.css("li.level1")
@@ -42,6 +43,5 @@ class CategorySpider(scrapy.Spider):
                 child_category['parent_category_id'] = parent_category['unique_id']
                 child_category['unique_id'] = str(uuid.uuid4())
                 child_category['is_page_list'] = True
-                yield child_category
 
-        
+                yield child_category

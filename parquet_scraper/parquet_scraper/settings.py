@@ -12,9 +12,10 @@ BOT_NAME = "parquet_scraper"
 SPIDER_MODULES = ["parquet_scraper.spiders"]
 NEWSPIDER_MODULE = "parquet_scraper.spiders"
 
-# FEEDS = {
-#     'categorydata.json' : {'format' : 'json' }
-# }
+FEEDS = {
+   'category.csv' : {'format' : 'csv' }, 
+   "products.csv": {"format": "csv"} 
+}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "parquet_scraper (+http://www.yourdomain.com)"

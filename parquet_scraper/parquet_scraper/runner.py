@@ -41,9 +41,9 @@ try:
     execute([ 
         'scrapy',
         'crawl',
-        productspider,
-        '-O',
-        'product.csv'
+        productspider
+        #'-O',
+        #'products.csv'
         # '-s',
         # f'LOG_FILE={log_file}'
     ])
