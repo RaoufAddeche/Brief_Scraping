@@ -60,6 +60,16 @@ class ProductSpider(scrapy.Spider):
         sku_view = product_view.css("div .sku")
         product_item['unique_id'] = sku_view.css("div.value ::text").get()
 
+
+        # regular_price = product_view.css("span.price ::text").get()
+        #  product_item['price'] = regular_price
+        
+        #  promotional_price = product_view.css("span.price .old-price span.price ::text").get()
+        #if promotional_price:
+         #   product_item['promotional_price'] = promotional_price  
+
         product_item['price'] = product_view.css("span.price ::text").get()
+
+        
         yield product_item
 

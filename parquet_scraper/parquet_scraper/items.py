@@ -19,4 +19,5 @@ class ProductItem(scrapy.Item):
     name = scrapy.Field()
     unique_id = scrapy.Field()
     price = scrapy.Field()
+    #promotional_price = scrapy.Field()
     

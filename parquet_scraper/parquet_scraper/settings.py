@@ -55,6 +55,7 @@ SPIDER_MIDDLEWARES = {
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
    "parquet_scraper.middlewares.ParquetScraperDownloaderMiddleware": 543,
+   'parquet_scraper.middlewares.RandomUserAgentMiddleware': 543,
 }
 
 # Enable or disable extensions
@@ -93,3 +94,5 @@ ITEM_PIPELINES = {
 # Set settings whose default value is deprecated to a future-proof value
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
+
+
