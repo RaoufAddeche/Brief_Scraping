@@ -19,6 +19,7 @@ class ParquetScraperPipeline:
         # Vérifier les doublons en utilisant unique_id
         unique_id = adapter.get('unique_id')
         if unique_id in self.deja_vu:
+            print(f"Doublon trouvé : {unique_id}")
             raise ValueError(f"Doublon trouvé : {unique_id}")
         
         # Ajouter l'identifiant unique pour éviter les doublons à l'avenir

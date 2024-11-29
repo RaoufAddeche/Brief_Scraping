@@ -29,6 +29,10 @@ class CategorySpider(scrapy.Spider):
 
             yield current_category
 
+            #gerer la pagination
+            next_page= response.css("a.next::attr(href)").get()
+            if next_page:
+                yield response.follow(next_page, callback=self.parse)
             
             parent_category = current_category
             parent_category_div = root_item.css("div.level0")
@@ -37,7 +41,12 @@ class CategorySpider(scrapy.Spider):
             for menu_item in child_category_items :
                 name = menu_item.css('a ::text').get()
                 url = menu_item.css('a ::attr(href)').get()
-                child_category = items.CategoryItem()
+                child_category = items.CategoryItem()    # print(f"\nExecute spider : {productspider}\n")
+    
+    # execute([ 
+    #     'scrapy',
+    #     'crawl',
+    #     productspider
                 child_category['name'] = name
                 child_category['url'] = url
                 child_category['parent_category_id'] = parent_category['unique_id']
@@ -45,3 +54,10 @@ class CategorySpider(scrapy.Spider):
                 child_category['is_page_list'] = True
 
                 yield child_category
+
+
+                #gerer la pagination pour les sous categories si il y a
+
+                next_page= response.css('a.next::attr(href)').get()
+                if next_page:
+                    yield response.follow(next_page, callback= self.parse)

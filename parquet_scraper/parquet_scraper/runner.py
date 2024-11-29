@@ -28,8 +28,9 @@ try:
     #     'scrapy',
     #     'crawl',
     #     categoryspider,
+
     #     '-O',
-    #     'category.json'
+    #     'category.csv'
     #     # '-s',
     #     # f'LOG_FILE={log_file}'
     # ])
@@ -42,6 +43,7 @@ try:
         'scrapy',
         'crawl',
         productspider
+
         #'-O',
         #'products.csv'
         # '-s',
