@@ -102,4 +102,31 @@ class ParquetScraperDownloaderMiddleware:
     def spider_opened(self, spider):
         spider.logger.info("Spider opened: %s" % spider.name)
 
+<<<<<<< HEAD
         
+=======
+    
+
+import random
+
+class RandomUserAgentMiddleware:
+    def __init__(self):
+        # Liste de différents User-Agents
+        self.user_agents = [
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
+        ]
+
+    def process_request(self, request, spider):
+        # Choisir un User-Agent aléatoire à chaque request
+        user_agent = random.choice(self.user_agents)
+
+        # afficher un print a chaque changement d'agent
+        print("Changement d'agent:", user_agent)
+
+        request.headers['User-Agent'] = user_agent
+        return None
+
+>>>>>>> develop

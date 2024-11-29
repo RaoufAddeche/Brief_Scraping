@@ -1,8 +1,11 @@
 import scrapy
-import items
+import parquet_scraper.items as items
 import json
+<<<<<<< HEAD
 import os
 from filenamesenum import Filenames
+=======
+>>>>>>> develop
 
 class ProductSpider(scrapy.Spider):
     name = "productspider"
@@ -13,7 +16,6 @@ class ProductSpider(scrapy.Spider):
     }
 
     def start_requests(self):
-        # print(os.listdir(os.getcwd()))
         self.category_list = self.load_categories()
         for cat in self.category_list:
             val = cat.get("is_page_list")
@@ -31,21 +33,25 @@ class ProductSpider(scrapy.Spider):
             return json.load(reading_file)
 
     def parse(self, response):
+
         product_grid = response.css("ol.product-grid")
         products = product_grid.css("a.product-item-photo")
+        cat_url = response.url  # URL de la catégorie actuelle
 
-        cat_url = response.url
-  
+        # Pour chaque produit dans la catégorie, suivre le lien vers la page produit
         for product in products :  
             url_product = product.css("::attr(href)").get()
             yield response.follow(url_product, callback=self.parse_product, meta = {"previous_url": cat_url})    
 
     def parse_product(self, response):
+        # Extraire les informations d'un produit spécifique
         product_item = items.ProductItem()
         product_item['url'] = response.url
 
         selected_category = None
         previous_url = response.meta["previous_url"]
+
+        # Associer le produit à sa catégorie parent
         for category in self.category_list :
             if category["url"] ==previous_url :
                 selected_category = category
@@ -61,6 +67,17 @@ class ProductSpider(scrapy.Spider):
         sku_view = product_view.css("div .sku")
         product_item['unique_id'] = sku_view.css("div.value ::text").get()
 
-        product_item['price'] = product_view.css("span.price ::text").get()
+      # Récupérer le prix promotionnel
+        promotional_price = response.css("span.special-price span.price-wrapper span.price ::text").get()
+        
+        if promotional_price:
+            product_item['promotional_price'] = promotional_price
+
+    # Récupérer le prix normal
+        regular_price = response.css("span.old-price span.price-wrapper span.price ::text").get()
+        
+        if regular_price:
+            product_item["regular_price"] = regular_price
+        
         yield product_item
 

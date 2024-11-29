@@ -13,7 +13,12 @@ SPIDER_MODULES = ["parquet_scraper.spiders"]
 NEWSPIDER_MODULE = "parquet_scraper.spiders"
 
 FEEDS = {
+<<<<<<< HEAD
 #      'categories.csv' : {'format' : 'json' }
+=======
+   'category.csv' : {'format' : 'csv' }, 
+   "products.csv": {"format": "csv"} 
+>>>>>>> develop
 }
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -55,6 +60,7 @@ SPIDER_MIDDLEWARES = {
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
    "parquet_scraper.middlewares.ParquetScraperDownloaderMiddleware": 543,
+   'parquet_scraper.middlewares.RandomUserAgentMiddleware': 543,
 }
 
 # Enable or disable extensions
@@ -94,3 +100,5 @@ ITEM_PIPELINES = {
 # Set settings whose default value is deprecated to a future-proof value
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
+
+

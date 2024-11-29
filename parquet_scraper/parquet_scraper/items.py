@@ -15,6 +15,7 @@ class CategoryItem(scrapy.Item):
     CATEGORY_PREFIX = "CATEGORY"
 
     unique_id = scrapy.Field()
+<<<<<<< HEAD
     parent_category_id = scrapy.Field()
     
 
@@ -24,4 +25,8 @@ class ProductItem(scrapy.Item):
 
     unique_id = scrapy.Field()
     parent_category_id = scrapy.Field()
+=======
+    regular_price = scrapy.Field()
+    promotional_price = scrapy.Field()
+>>>>>>> develop
     
