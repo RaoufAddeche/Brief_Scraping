@@ -32,10 +32,7 @@ try:
     #     # '-O',
     #     # Filenames.CATEGORIES_CSV.value
     #     '-O',
-    #     Filenames.CATEGORIES_CSV.value
-
-    #     '-O',
-    #     'category.csv'
+    #     Filenames.CATEGORIES_JSON.value
     #     # '-s',
     #     # f'LOG_FILE={log_file}'
     # ])
