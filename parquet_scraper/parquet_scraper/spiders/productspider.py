@@ -2,6 +2,7 @@ import scrapy
 import items
 import json
 import os
+from filenamesenum import Filenames
 
 class ProductSpider(scrapy.Spider):
     name = "productspider"
@@ -26,8 +27,8 @@ class ProductSpider(scrapy.Spider):
             )
         
     def load_categories(self) :
-        with open("category.json", "r") as f:
-            return json.load(f)
+        with open(Filenames.CATEGORIES_JSON, "r") as reading_file:
+            return json.load(reading_file)
 
     def parse(self, response):
         product_grid = response.css("ol.product-grid")
