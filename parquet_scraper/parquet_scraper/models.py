@@ -8,7 +8,7 @@ class Product(SQLModel, table = True):
     name :str
     url : str
 
-    product_infos : list["ProductInfo"] 
+   # product_infos : list["ProductInfo"] 
 
 class Category_Product(SQLModel, table = True) :
     id_category_product : Optional[int] = Field(default=None, primary_key=True)
@@ -17,15 +17,15 @@ class Category_Product(SQLModel, table = True) :
 
 class Category(SQLModel, table = True) :
     id_category : Optional[int] = Field(default=None, primary_key=True)
-    url_based_id : str = Field(unique=True)
+    url_based_id : str # = Field(unique=True)
     url : str
     name : str
-    parent_url_based_id : str
+    parent_url_based_id : Optional[str]
     is_page_list : bool
 
 class ProductInfo(SQLModel, table = True) :
     id_product_info : Optional[int] = Field(default=None, primary_key=True)
-    id_product : int = Field(default=None, foreign_key="product.id_category")
+    id_product : int = Field(default=None, foreign_key="product.id_product")
     field_name : str
     field_value : str
 

@@ -67,7 +67,7 @@ DOWNLOADER_MIDDLEWARES = {
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    "parquet_scraper.pipelines.ParquetScraperPipeline": 300,
-   "parquet_scraper.pipelines.SaveToSQLitePipeline": 400,
+   "parquet_scraper.pipelines.SaveToSQLitePipeline": 400
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
