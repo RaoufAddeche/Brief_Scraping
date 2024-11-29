@@ -4,9 +4,9 @@ from typing import Optional
 
 class Product(SQLModel, table = True):
     id_product : Optional[int] = Field(default=None, primary_key=True)
-    stock_keeping_unit : str = Field(unique=True)
     name :str
     url : str
+    stock_keeping_unit : str = Field(unique=True)
 
    # product_infos : list["ProductInfo"] 
 

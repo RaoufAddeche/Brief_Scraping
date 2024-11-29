@@ -101,10 +101,37 @@ class SaveToSQLitePipeline :
             session.add(new_category)
             session.commit()
 
-        
         return category_item
 
-    def process_product(self, product_item, spider):
+    def process_product(self, product_item : ProductItem, spider):
+
+        item_name =""
+        item_url = ""
+        item_sku = ""
+        item_category = ""
+        item_other_fields = {}
+        for key in product_item.keys() :
+            match key :
+                case "name" : item_name = product_item["name"]
+                case "url" : item_url = product_item["url"]
+                case "unique_id" : item_sku = product_item["unique_id"] 
+                case "parent_category_id" : product_item["parent_category_id"] = item_category 
+                case other_key : item_other_fields[other_key] = product_item[other_key]
+
+        with sm.Session(self.engine) as session :
+            statement = sm.select(models.Category).where(models.Category.url_based_id ==  item_category)  
+            results = session.exec(statement)
+            result_categories = list(results)
+            
+            #get the latest parent category
+            parent_category = None
+            for result in result_categories :
+                if result.date > max_date :
+                    max_date = result.date
+                    parent_category = result
+            
+            if parent_category == None :
+                return product_item
 
         return product_item
         
