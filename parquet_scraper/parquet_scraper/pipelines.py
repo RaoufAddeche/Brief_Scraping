@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #Define your item pipelines here
 
 #Don't forget to add your pipeline to the ITEM_PIPELINES setting
@@ -6,11 +5,7 @@
 
 #useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
-=======
-from itemadapter import ItemAdapter
 import scrapy
-
->>>>>>> develop
 
 class ParquetScraperPipeline:
     """
@@ -95,16 +90,11 @@ import init_db as idb
 import models as psm
 import inspect
 
-<<<<<<< HEAD
-class SaveToSQLitePipeline :
-=======
-
 class SaveToSQLitePipeline:
     """
     Pipeline pour enregistrer les éléments extraits par le scraper dans une base de données SQLite.
     Cette pipeline gère la création de la base de données et l'ajout des catégories et produits extraits.
     """
->>>>>>> develop
 
     def __init__(self):
         """
