@@ -17,11 +17,12 @@ class Category_Product(SQLModel, table = True) :
 
 class Category(SQLModel, table = True) :
     id_category : Optional[int] = Field(default=None, primary_key=True)
-    url_based_id : str # = Field(unique=True)
-    url : str
     name : str
+    url : str
+    is_page_list : bool   
+    url_based_id : str # = Field(unique=True)
     parent_url_based_id : Optional[str]
-    is_page_list : bool
+    date : dt.datetime
 
 class ProductInfo(SQLModel, table = True) :
     id_product_info : Optional[int] = Field(default=None, primary_key=True)
