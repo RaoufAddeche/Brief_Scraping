@@ -6,6 +6,8 @@ from filenamesenum import Filenames
 
 class ProductSpider(scrapy.Spider):
     """
+    Spider pour extraire les informations des produits à partir du site boutique-parquet.com.
+
     Attributs:
         name (str): Le nom de l'araignée.
         allowed_domains (list): Les domaines que l'araignée est autorisée à explorer.
@@ -21,17 +23,16 @@ class ProductSpider(scrapy.Spider):
     name = "productspider"
     allowed_domains = ["boutique-parquet.com"]
 
+    # Paramètres personnalisés pour le format de sortie
     custom_setting = {
         "FEEDS": { Filenames.PRODUCTS_CSV: {"format": "csv"} }
     }
 
     def start_requests(self):
         """
-        Initie le processus de scraping en chargeant les données de catégorie et en générant des requêtes pour chaque page de catégorie. 
-        Cette fonction filtre les catégories pour inclure uniquement celles marquées comme listes de pages et prépare l'araignée à commencer le scraping.
-
-        Args:
-            self: L'instance de la classe.
+        Initie le processus de scraping en chargeant les données de catégorie et en générant des requêtes 
+        pour chaque page de catégorie. Cette fonction filtre les catégories pour inclure uniquement celles 
+        marquées comme listes de pages et prépare l'araignée à commencer le scraping.
 
         Yields:
             scrapy.Request: Un objet de requête pour chaque URL de catégorie à traiter par la méthode parse.
@@ -40,10 +41,9 @@ class ProductSpider(scrapy.Spider):
         # Charger les données de catégorie depuis le fichier JSON
         self.category_list = self.load_categories()
 
-        # Filtrer les catégories qui sont des listes de pages
+        # Filtrer les catégories qui sont des listes de pages (is_page_list == True)
         for cat in self.category_list:
-            val = cat.get("is_page_list")
-            if val == True:
+            if cat.get("is_page_list"):
                 self.start_urls.append(cat["url"])
 
         # Générer des requêtes pour chaque URL de catégorie
@@ -53,13 +53,10 @@ class ProductSpider(scrapy.Spider):
                 callback=self.parse
             )
         
-
     def load_categories(self):
         """
-        Charge les données de catégorie à partir d'un fichier JSON. Cette fonction ouvre le fichier "category.json" et renvoie son contenu sous forme de structure de données Python.
-
-        Args:
-            self: L'instance de la classe.
+        Charge les données de catégorie à partir d'un fichier JSON. Cette fonction ouvre le fichier "category.json"
+        et renvoie son contenu sous forme de structure de données Python.
 
         Returns:
             list: Une liste d'objets de catégorie chargés depuis le fichier JSON.
@@ -68,21 +65,20 @@ class ProductSpider(scrapy.Spider):
         with open(Filenames.CATEGORIES_JSON, "r") as reading_file:
             return json.load(reading_file)
 
-
     def parse(self, response):
         """
         Traite la page d'une catégorie pour extraire les liens des produits et générer des requêtes pour chaque produit. 
-        Cette fonction identifie les produits dans la grille de produits et suit les liens vers leurs pages respectives pour en extraire des informations détaillées.
+        Cette fonction identifie les produits dans la grille de produits et suit les liens vers leurs pages respectives 
+        pour en extraire des informations détaillées.
 
         Args:
-            self: L'instance de la classe.
             response: La réponse de la requête contenant le contenu de la page de catégorie.
 
         Yields:
             scrapy.Request: Une requête pour chaque page de produit à traiter par la méthode parse_product.
         """
 
-        # Extraire les produits dans la grille de produits de la catégorie
+        # Extraire la grille de produits de la page de catégorie
         product_grid = response.css("ol.product-grid")
         products = product_grid.css("a.product-item-photo")
         cat_url = response.url  # URL de la catégorie actuelle
@@ -90,15 +86,15 @@ class ProductSpider(scrapy.Spider):
         # Pour chaque produit dans la catégorie, suivre le lien vers la page produit
         for product in products:
             url_product = product.css("::attr(href)").get()
-            yield response.follow(url_product, callback=self.parse_product, meta={"previous_url": cat_url})    
+            yield response.follow(url_product, callback=self.parse_product, meta={"previous_url": cat_url})
 
     def parse_product(self, response):
         """
-        Extrait les informations détaillées d'un produit spécifique à partir de sa page. 
-        Cette fonction crée un objet produit, associe le produit à sa catégorie parent, et récupère des informations telles que l'URL, le nom, l'identifiant unique, et les prix promotionnels et réguliers.
+        Extrait les informations détaillées d'un produit spécifique à partir de sa page. Cette fonction crée un objet produit, 
+        associe le produit à sa catégorie parent, et récupère des informations telles que l'URL, le nom, l'identifiant unique,
+        et les prix promotionnels et réguliers.
 
         Args:
-            self: L'instance de la classe.
             response: La réponse de la requête contenant le contenu de la page du produit.
 
         Yields:
@@ -118,10 +114,10 @@ class ProductSpider(scrapy.Spider):
                 selected_category = category
                 break
 
-        if selected_category != None:
+        if selected_category:
             product_item["parent_category_id"] = selected_category["unique_id"]
 
-        # Extraire le nom du produit
+        # Extraire le nom du produit depuis la page produit
         name_view = response.xpath("//span[@data-ui-id='page-title-wrapper']")
         product_item['name'] = name_view.css(" ::text").get()
 
@@ -130,12 +126,12 @@ class ProductSpider(scrapy.Spider):
         sku_view = product_view.css("div .sku")
         product_item['stock_keeping_unit'] = sku_view.css("div.value ::text").get()
 
-        # Récupérer le prix promotionnel
+        # Extraire le prix promotionnel du produit
         promotional_price = response.css("span.special-price span.price-wrapper span.price ::text").get()
         if promotional_price:
             product_item['promotional_price'] = promotional_price
 
-        # Récupérer le prix normal
+        # Extraire le prix normal du produit
         regular_price = response.css("span.old-price span.price-wrapper span.price ::text").get()
         if regular_price:
             product_item["regular_price"] = regular_price
