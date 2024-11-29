@@ -35,7 +35,7 @@ class ParquetScraperPipeline:
         # Adapter l'item pour une manipulation facile
         adapter = ItemAdapter(item)
 
-        if "is_page_list" in cast(scrapy.Item, item).fields:
+        if adapter.is_item_class(CategoryItem) :
             return item
 
         # Vérifier les doublons en utilisant 'unique_id'
@@ -139,18 +139,21 @@ class SaveToSQLitePipeline:
         Returns:
             item: L'item après traitement.
         """
+        # Adapter l'item pour une manipulation facile
+        adapter = ItemAdapter(item)
+
         # Si l'item est une catégorie, traiter avec la méthode process_category
-        if isinstance(item, CategoryItem):
-            return self.process_category(cast(CategoryItem, item), spider)
+        if adapter.is_item_class(CategoryItem) :
+            return self.process_category(adapter, spider)
         
         # Si l'item est un produit, traiter avec la méthode process_product
-        elif isinstance(item, ProductItem):
-            return self.process_product(cast(ProductItem, item), spider)
+        elif adapter.is_item_class(ProductItem) :
+            return self.process_product(adapter, spider)
         
         # Si l'item n'est ni une catégorie ni un produit, le retourner tel quel
         return item
 
-    def process_category(self, category_item: CategoryItem, spider):
+    def process_category(self, adapter: ItemAdapter, spider):
         """
         Traite une catégorie et l'enregistre dans la base de données SQLite.
 
@@ -163,12 +166,12 @@ class SaveToSQLitePipeline:
             category_item: L'item après traitement (ajout dans la base de données).
         """
         # Extraction des informations de la catégorie
-        item_name = str(category_item["name"])
-        item_url = str(category_item["url"])
-        item_is_page_list = bool(category_item["is_page_list"])
+        item_name = str(adapter["name"])
+        item_url = str(adapter["url"])
+        item_is_page_list = bool(adapter["is_page_list"])
 
-        item_url_based_id = str(category_item["unique_id"])
-        item_parent_url_based_id = str(category_item["parent_category_id"])
+        item_url_based_id = str(adapter["unique_id"])
+        item_parent_url_based_id = str(adapter["parent_category_id"])
 
         # Initialisation d'une date maximale pour comparer les dates des catégories parentes
         max_date = dt.datetime(year=2024, month=1, day=1)
@@ -188,7 +191,7 @@ class SaveToSQLitePipeline:
 
             # Si aucune catégorie parente n'est trouvée, ne rien faire
             if parent_category is None:
-                return category_item
+                return adapter.item
 
             # Ajouter la nouvelle catégorie dans la base de données
             new_category = models.Category(
@@ -203,9 +206,9 @@ class SaveToSQLitePipeline:
             session.add(new_category)
             session.commit()
 
-        return category_item
+        return adapter.item
 
-    def process_product(self, product_item: ProductItem, spider):
+    def process_product(self, adapter: ItemAdapter, spider):
         """
         Traite un produit et l'enregistre dans la base de données SQLite.
 
@@ -223,18 +226,18 @@ class SaveToSQLitePipeline:
         item_sku = ""
         item_category = ""
         item_other_fields = {}
-        for key in product_item.keys():
+        for key in adapter.item.keys():
             match key:
                 case "name":
-                    item_name = product_item["name"]
+                    item_name = adapter["name"]
                 case "url":
-                    item_url = product_item["url"]
+                    item_url = adapter["url"]
                 case "stock_keeping_unit":
-                    item_sku = product_item["stock_keeping_unit"]
+                    item_sku = adapter["stock_keeping_unit"]
                 case "parent_category_id":
-                    product_item["parent_category_id"] = item_category
+                    adapter["parent_category_id"] = item_category
                 case other_key:
-                    item_other_fields[other_key] = product_item[other_key]
+                    item_other_fields[other_key] = adapter[other_key]
 
         # Recherche de la catégorie associée au produit
         with sm.Session(self.engine) as session:
@@ -251,6 +254,6 @@ class SaveToSQLitePipeline:
             
             # Si aucune catégorie parente n'est trouvée, ne rien faire
             if parent_category is None:
-                return product_item
+                return adapter.item
 
-        return product_item
+        return adapter.item
