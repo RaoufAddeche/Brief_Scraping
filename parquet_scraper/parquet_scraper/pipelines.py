@@ -39,3 +39,5 @@ class ParquetScraperPipeline:
                 adapter[field_name] = value.strip()
 
         return item
+    
+
