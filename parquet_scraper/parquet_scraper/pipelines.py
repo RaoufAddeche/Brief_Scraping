@@ -41,7 +41,6 @@ class ParquetScraperPipeline:
 
         return item
     
-<<<<<<< HEAD
 #______________________________________________________________________________
 #
 # region SaveToSQLitePipeline
@@ -166,6 +165,4 @@ class SaveToSQLitePipeline :
         
             
         
-=======
 
->>>>>>> develop
