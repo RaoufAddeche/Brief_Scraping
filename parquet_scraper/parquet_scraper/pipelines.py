@@ -261,17 +261,8 @@ class SaveToSQLitePipeline:
                     max_date = result.date
                     parent_category = result
             
-<<<<<<< HEAD
-            if parent_category == None :
-                return product_item
-
-        return product_item       
-            
-        
-=======
             # Si aucune catégorie parente n'est trouvée, ne rien faire
             if parent_category is None:
                 return adapter.item
->>>>>>> develop
 
         return adapter.item
