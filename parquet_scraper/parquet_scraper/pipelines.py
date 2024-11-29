@@ -143,7 +143,7 @@ class SaveToSQLitePipeline:
         adapter = ItemAdapter(item)
 
         # Si l'item est une catégorie, traiter avec la méthode process_category
-        if adapter.is_item_class(CategoryItem) :
+        if "is_page_list" in item.fields :
             return self.process_category(adapter, spider)
         
         # Si l'item est un produit, traiter avec la méthode process_product
@@ -168,7 +168,9 @@ class SaveToSQLitePipeline:
         # Extraction des informations de la catégorie
         item_name = str(adapter["name"])
         item_url = str(adapter["url"])
-        item_is_page_list = bool(adapter["is_page_list"])
+        truc = adapter["is_page_list"]
+        item_is_page_list = bool(truc)
+        #is_page_list
 
         item_url_based_id = str(adapter["unique_id"])
         item_parent_url_based_id = str(adapter["parent_category_id"])
