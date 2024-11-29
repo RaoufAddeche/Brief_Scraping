@@ -29,16 +29,13 @@ try:
     #     'scrapy',
     #     'crawl',
     #     categoryspider,
-<<<<<<< HEAD
     #     # '-O',
     #     # Filenames.CATEGORIES_CSV.value
     #     '-O',
     #     Filenames.CATEGORIES_CSV.value
-=======
 
     #     '-O',
     #     'category.csv'
->>>>>>> develop
     #     # '-s',
     #     # f'LOG_FILE={log_file}'
     # ])
@@ -50,16 +47,11 @@ try:
     execute([ 
         'scrapy',
         'crawl',
-<<<<<<< HEAD
         productspider,
         '-O',
         Filenames.PRODUCTS_CSV.value
-=======
-        productspider
-
         #'-O',
         #'products.csv'
->>>>>>> develop
         # '-s',
         # f'LOG_FILE={log_file}'
     ])

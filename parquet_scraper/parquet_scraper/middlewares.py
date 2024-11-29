@@ -102,9 +102,6 @@ class ParquetScraperDownloaderMiddleware:
     def spider_opened(self, spider):
         spider.logger.info("Spider opened: %s" % spider.name)
 
-<<<<<<< HEAD
-        
-=======
     
 
 import random
@@ -129,4 +126,3 @@ class RandomUserAgentMiddleware:
         request.headers['User-Agent'] = user_agent
         return None
 
->>>>>>> develop

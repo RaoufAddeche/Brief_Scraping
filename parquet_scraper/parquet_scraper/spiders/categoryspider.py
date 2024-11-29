@@ -1,11 +1,8 @@
 import scrapy
 import parquet_scraper.items as items
 import uuid
-<<<<<<< HEAD
 from typing import cast
 from filenamesenum import Filenames
-=======
->>>>>>> develop
 
 class CategorySpider(scrapy.Spider):
     name = "categoryspider"
@@ -13,17 +10,11 @@ class CategorySpider(scrapy.Spider):
     start_urls = ["https://boutique-parquet.com"]
 
     custom_setting = {
-<<<<<<< HEAD
         "FEEDS": { 
             Filenames.CATEGORIES_CSV.value: {"format": "csv"}, #"overwrite" : True },
             Filenames.CATEGORIES_JSON.value: {"format": "json"} #, "overwrite" : True }
-=======
-        "FEEDS": {
-            "category.csv": {"format": "csv"}        
->>>>>>> develop
         }
     }
-
 
     def create_category_id(self, url:str) -> str:
         end_url = url.removeprefix(self.start_urls[0])

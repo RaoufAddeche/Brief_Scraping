@@ -1,18 +1,15 @@
 import scrapy
 import parquet_scraper.items as items
 import json
-<<<<<<< HEAD
 import os
 from filenamesenum import Filenames
-=======
->>>>>>> develop
 
 class ProductSpider(scrapy.Spider):
     name = "productspider"
     allowed_domains = ["boutique-parquet.com"]
 
     custom_setting = {
-        "FEEDS": { "products.csv": {"format": "csv"} }
+        "FEEDS": { Filenames.PRODUCTS_CSV: {"format": "csv"} }
     }
 
     def start_requests(self):
