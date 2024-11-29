@@ -24,7 +24,7 @@ with open(Filenames.PRODUCTS_CSV.value, "r") as read_file :
     for line in read_file.readlines() :
         product_count +=1
         fields = line.split(',')
-        sku = fields[3]
+        sku = fields[2]
         sku_set.add(sku)
 
 print(f"Number of lines = {product_count}")
