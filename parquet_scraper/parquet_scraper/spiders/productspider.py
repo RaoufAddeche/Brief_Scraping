@@ -25,7 +25,7 @@ class ProductSpider(scrapy.Spider):
 
     # Paramètres personnalisés pour le format de sortie
     custom_settings = {
-        "FEEDS": { Filenames.PRODUCTS_CSV: {"format": "csv"} }
+        "FEEDS": { Filenames.PRODUCTS_CSV.value: {"format": "csv", "overwrite": True} }
     }
 
     def start_requests(self):
@@ -61,8 +61,8 @@ class ProductSpider(scrapy.Spider):
         Returns:
             list: Une liste d'objets de catégorie chargés depuis le fichier JSON.
         """
-        # Ouvrir et charger les données JSON depuis le fichier "category.json"
-        with open(Filenames.CATEGORIES_JSON, "r") as reading_file:
+        # Ouvrir et charger les données JSON depuis le fichier "categories.json"
+        with open(Filenames.CATEGORIES_JSON.value, "r") as reading_file:
             return json.load(reading_file)
 
     def parse(self, response):
@@ -119,7 +119,8 @@ class ProductSpider(scrapy.Spider):
 
         # Extraire le nom du produit depuis la page produit
         name_view = response.xpath("//span[@data-ui-id='page-title-wrapper']")
-        product_item['name'] = name_view.css(" ::text").get()
+        name_with_comma = name_view.css(" ::text").get()
+        product_item['name'] = str(name_with_comma).replace(',', '.') 
 
         # Extraire l'identifiant unique (SKU) du produit
         product_view = response.css("div .product-view")
@@ -129,12 +130,12 @@ class ProductSpider(scrapy.Spider):
         # Extraire le prix promotionnel du produit
         promotional_price = response.css("span.special-price span.price-wrapper span.price ::text").get()
         if promotional_price:
-            product_item['promotional_price'] = promotional_price
+            product_item['promotional_price'] = str(promotional_price).replace(',','.')
 
         # Extraire le prix normal du produit
         regular_price = response.css("span.old-price span.price-wrapper span.price ::text").get()
         if regular_price:
-            product_item["regular_price"] = regular_price
+            product_item["regular_price"] = str(regular_price).replace(',','.')
         
         # Yield l'objet ProductItem avec toutes les informations extraites
         yield product_item

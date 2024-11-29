@@ -27,8 +27,8 @@ class CategorySpider(scrapy.Spider):
     # Paramètres de configuration pour le format de sortie (CSV et JSON)
     custom_settings = {
         "FEEDS": { 
-            Filenames.CATEGORIES_CSV.value: {"format": "csv"},  # Export en CSV
-            Filenames.CATEGORIES_JSON.value: {"format": "json"} # Export en JSON
+            Filenames.CATEGORIES_CSV.value: {"format": "csv", "overwrite":True },  # Export en CSV
+            Filenames.CATEGORIES_JSON.value: {"format": "json", "overwrite":True } # Export en JSON
         }
     }
 
@@ -80,7 +80,7 @@ class CategorySpider(scrapy.Spider):
             
             # Créer un objet CategoryItem pour la catégorie principale
             current_category = items.CategoryItem()
-            current_category['name'] = name
+            current_category['name'] = str(name).replace(',', '.')
             current_category['url'] = url
             current_category['unique_id'] = self.create_category_id(url)  # Générer un identifiant unique
             current_category['parent_category_id'] = items.CategoryItem.CATEGORY_ROOT  # Catégorie principale (racine)
