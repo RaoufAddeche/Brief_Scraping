@@ -5,7 +5,7 @@
 
 # Utilisé pour traiter différents types d'items avec une interface unique
 from itemadapter import ItemAdapter
-
+import scrapy
 
 
 class ParquetScraperPipeline:
@@ -34,13 +34,15 @@ class ParquetScraperPipeline:
             self: L'instance de la classe.
             item: L'item à traiter (un dictionnaire ou une instance d'objet).
             spider: L'araignée (spider) qui a extrait cet item.
-
         Returns:
             item: L'item après traitement.
         """
-        
+    
         # Adapter l'item pour une manipulation facile
         adapter = ItemAdapter(item)
+
+        if "is_page_list" in cast(scrapy.Item, item).fields:
+            return item
 
         # Vérifier les doublons en utilisant 'unique_id'
         unique_id = adapter.get('stock_keeping_unit')
