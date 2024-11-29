@@ -3,11 +3,8 @@
 #Don't forget to add your pipeline to the ITEM_PIPELINES setting
 #See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
-
 #useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
-
-
 
 class ParquetScraperPipeline:
     def __init__(self):
@@ -57,7 +54,6 @@ import os
 import init_db as idb
 import models
 
-
 class SaveToSQLitePipeline :
 
     def __init__(self) :
@@ -81,7 +77,6 @@ class SaveToSQLitePipeline :
             
             session.add(root_category)
             session.commit()
-            
 
     def process_item(self, item, spider):
         if isinstance(item, CategoryItem) :           
@@ -161,8 +156,7 @@ class SaveToSQLitePipeline :
             if parent_category == None :
                 return product_item
 
-        return product_item
-        
+        return product_item       
             
         
 
