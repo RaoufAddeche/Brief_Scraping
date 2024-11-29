@@ -32,11 +32,12 @@ class ParquetScraperPipeline:
             item: L'item après traitement.
         """
     
+        is_category = bool( SpecificFields.CATEGORY_SPECIFIC_FIELD.value in item.fields )
+        if is_category :
+            return item
+
         # Adapter l'item pour une manipulation facile
         adapter = ItemAdapter(item)
-
-        if adapter.is_item_class(CategoryItem) :
-            return item
 
         # Vérifier les doublons en utilisant 'unique_id'
         unique_id = adapter.get('stock_keeping_unit')
@@ -72,7 +73,7 @@ class ParquetScraperPipeline:
 # region SaveToSQLitePipeline
 #______________________________________________________________________________
 
-from filenamesenum import Filenames
+from filenamesenum import Filenames, SpecificFields
 from items import CategoryItem, ProductItem
 from typing import cast
 import datetime as dt
@@ -81,7 +82,8 @@ import sqlmodel as sm
 from sqlalchemy import Engine
 import os
 import init_db as idb
-import models
+import models as psm
+import inspect
 
 
 class SaveToSQLitePipeline:
@@ -112,16 +114,15 @@ class SaveToSQLitePipeline:
         if need_creation:
             echo_object = sm.SQLModel.metadata.create_all(self.engine)
 
-        # Ajout d'une catégorie racine dans la base de données si nécessaire
+        # Ajout d'une catégorie racine dans la base de données à chaque nouvel import
         with sm.Session(self.engine) as session:
-            root_category = models.Category(
+            root_category = psm.Category(
                 name="Menu du site",
                 url="https://boutique-parquet.com",
                 is_page_list=False,
                 url_based_id=CategoryItem.CATEGORY_ROOT,
                 parent_url_based_id=None,
-                date=dt.datetime.now()
-            )
+                date=dt.datetime.now())
             
             session.add(root_category)
             session.commit()
@@ -139,15 +140,19 @@ class SaveToSQLitePipeline:
         Returns:
             item: L'item après traitement.
         """
+
+        is_category = bool( SpecificFields.CATEGORY_SPECIFIC_FIELD.value in item.fields )
+        is_product = bool( SpecificFields.PRODUCT_SPECIFIC_FIELD.value in item.fields ) 
+
         # Adapter l'item pour une manipulation facile
         adapter = ItemAdapter(item)
-
+        
         # Si l'item est une catégorie, traiter avec la méthode process_category
-        if "is_page_list" in item.fields :
+        if is_category :
             return self.process_category(adapter, spider)
         
         # Si l'item est un produit, traiter avec la méthode process_product
-        elif adapter.is_item_class(ProductItem) :
+        elif is_product :
             return self.process_product(adapter, spider)
         
         # Si l'item n'est ni une catégorie ni un produit, le retourner tel quel
@@ -168,9 +173,7 @@ class SaveToSQLitePipeline:
         # Extraction des informations de la catégorie
         item_name = str(adapter["name"])
         item_url = str(adapter["url"])
-        truc = adapter["is_page_list"]
-        item_is_page_list = bool(truc)
-        #is_page_list
+        item_is_page_list = adapter["is_page_list"]
 
         item_url_based_id = str(adapter["unique_id"])
         item_parent_url_based_id = str(adapter["parent_category_id"])
@@ -180,7 +183,7 @@ class SaveToSQLitePipeline:
 
         # Recherche de la catégorie parente dans la base de données
         with sm.Session(self.engine) as session:
-            statement = sm.select(models.Category).where(models.Category.url_based_id == item_parent_url_based_id)  
+            statement = sm.select(psm.Category).where(psm.Category.url_based_id == item_parent_url_based_id)  
             results = session.exec(statement)
             result_categories = list(results)
             
@@ -196,7 +199,7 @@ class SaveToSQLitePipeline:
                 return adapter.item
 
             # Ajouter la nouvelle catégorie dans la base de données
-            new_category = models.Category(
+            new_category = psm.Category(
                 name=item_name,
                 url=item_url,
                 is_page_list=item_is_page_list,
@@ -243,7 +246,7 @@ class SaveToSQLitePipeline:
 
         # Recherche de la catégorie associée au produit
         with sm.Session(self.engine) as session:
-            statement = sm.select(models.Category).where(models.Category.url_based_id == item_category)
+            statement = sm.select(psm.Category).where(psm.Category.url_based_id == item_category)
             results = session.exec(statement)
             result_categories = list(results)
             

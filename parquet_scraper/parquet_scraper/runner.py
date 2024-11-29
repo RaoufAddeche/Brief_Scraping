@@ -6,7 +6,6 @@ from filenamesenum import Filenames
 categoryspider = "categoryspider"
 productspider = "productspider"
 
-
 try:
     
     # print(f"\nExecute spider : {categoryspider}\n")
