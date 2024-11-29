@@ -24,7 +24,7 @@ class ProductSpider(scrapy.Spider):
     allowed_domains = ["boutique-parquet.com"]
 
     # Paramètres personnalisés pour le format de sortie
-    custom_setting = {
+    custom_settings = {
         "FEEDS": { Filenames.PRODUCTS_CSV: {"format": "csv"} }
     }
 

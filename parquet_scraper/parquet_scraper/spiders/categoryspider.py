@@ -25,7 +25,7 @@ class CategorySpider(scrapy.Spider):
     start_urls = ["https://boutique-parquet.com"]
 
     # Paramètres de configuration pour le format de sortie (CSV et JSON)
-    custom_setting = {
+    custom_settings = {
         "FEEDS": { 
             Filenames.CATEGORIES_CSV.value: {"format": "csv"},  # Export en CSV
             Filenames.CATEGORIES_JSON.value: {"format": "json"} # Export en JSON
