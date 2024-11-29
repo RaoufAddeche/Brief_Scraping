@@ -11,7 +11,7 @@ class ParquetScraperPipeline:
     def __init__(self):
         """
         Initialise le pipeline avec un ensemble vide pour vérifier les doublons.
-        
+
         Args:
             self: L'instance de la classe.
         """
@@ -28,6 +28,7 @@ class ParquetScraperPipeline:
             self: L'instance de la classe.
             item: L'item à traiter (un dictionnaire ou une instance d'objet).
             spider: L'araignée (spider) qui a extrait cet item.
+
         Returns:
             item: L'item après traitement.
         """
@@ -35,7 +36,8 @@ class ParquetScraperPipeline:
         # Adapter l'item pour une manipulation facile
         adapter = ItemAdapter(item)
 
-        if adapter.is_item_class(CategoryItem) :
+        # Si l'item est une catégorie, on le retourne sans modification
+        if adapter.is_item_class(CategoryItem):
             return item
 
         # Vérifier les doublons en utilisant 'unique_id'
@@ -143,11 +145,11 @@ class SaveToSQLitePipeline:
         adapter = ItemAdapter(item)
 
         # Si l'item est une catégorie, traiter avec la méthode process_category
-        if adapter.is_item_class(CategoryItem) :
+        if adapter.is_item_class(CategoryItem):
             return self.process_category(adapter, spider)
         
         # Si l'item est un produit, traiter avec la méthode process_product
-        elif adapter.is_item_class(ProductItem) :
+        elif adapter.is_item_class(ProductItem):
             return self.process_product(adapter, spider)
         
         # Si l'item n'est ni une catégorie ni un produit, le retourner tel quel
@@ -226,6 +228,8 @@ class SaveToSQLitePipeline:
         item_sku = ""
         item_category = ""
         item_other_fields = {}
+
+        # Extraction des champs de l'item
         for key in adapter.item.keys():
             match key:
                 case "name":
@@ -256,4 +260,5 @@ class SaveToSQLitePipeline:
             if parent_category is None:
                 return adapter.item
 
+        # Retourner l'item après traitement
         return adapter.item
