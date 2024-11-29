@@ -103,12 +103,25 @@ class ParquetScraperDownloaderMiddleware:
         spider.logger.info("Spider opened: %s" % spider.name)
 
     
-
 import random
 
 class RandomUserAgentMiddleware:
+    """
+    Middleware permettant de définir un User-Agent aléatoire pour chaque requête.
+    Cela permet de simuler des requêtes provenant de différents navigateurs afin d'éviter d'être bloqué par le site web lors du scraping.
+    """
+
     def __init__(self):
-        # Liste de différents User-Agents
+        """
+        Initialise un middleware avec une liste de différents User-Agents. 
+        Cette liste est utilisée pour simuler des requêtes provenant de divers navigateurs 
+        afin d'éviter d'être bloqué par les sites web lors du scraping.
+
+        Args:
+            self: L'instance de la classe.
+        """
+        
+        # Liste de différents User-Agents simulant divers navigateurs
         self.user_agents = [
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
             'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0',
@@ -117,12 +130,28 @@ class RandomUserAgentMiddleware:
         ]
 
     def process_request(self, request, spider):
-        # Choisir un User-Agent aléatoire à chaque request
+        """
+        Modifie la requête en assignant un User-Agent aléatoire à chaque demande. 
+        Cette fonction permet de simuler des requêtes provenant de différents navigateurs, 
+        ce qui peut aider à éviter les blocages lors du scraping.
+
+        Args:
+            self: L'instance de la classe.
+            request: L'objet de requête à modifier.
+            spider: L'araignée qui effectue la requête.
+
+        Returns:
+            None
+        """
+
+        # Choisir un User-Agent aléatoire parmi la liste des User-Agents disponibles
         user_agent = random.choice(self.user_agents)
 
-        # afficher un print a chaque changement d'agent
+        # Afficher le User-Agent choisi pour la requête (utile pour le debugging)
         print("Changement d'agent:", user_agent)
 
+        # Assigner le User-Agent choisi à la requête
         request.headers['User-Agent'] = user_agent
-        return None
 
+        # Retourner None pour indiquer que la requête est prête à être envoyée
+        return None
