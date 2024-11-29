@@ -7,14 +7,16 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+from filenamesenum import Filenames
+
 BOT_NAME = "parquet_scraper"
 
 SPIDER_MODULES = ["parquet_scraper.spiders"]
 NEWSPIDER_MODULE = "parquet_scraper.spiders"
 
 FEEDS = {
-   'category.csv' : {'format' : 'csv' }, 
-   "products.csv": {"format": "csv"} 
+   Filenames.CATEGORIES_CSV.value : {'format' : 'csv' }, 
+   Filenames.PRODUCTS_CSV.value: {"format": "csv"} 
 }
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -69,6 +71,7 @@ DOWNLOADER_MIDDLEWARES = {
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    "parquet_scraper.pipelines.ParquetScraperPipeline": 300,
+   "parquet_scraper.pipelines.SaveToSQLitePipeline": 400
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

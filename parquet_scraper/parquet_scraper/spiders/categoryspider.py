@@ -1,6 +1,8 @@
 import scrapy
 import parquet_scraper.items as items
 import uuid
+from typing import cast
+from filenamesenum import Filenames
 
 class CategorySpider(scrapy.Spider):
     """
@@ -21,10 +23,20 @@ class CategorySpider(scrapy.Spider):
     start_urls = ["https://boutique-parquet.com"]
 
     custom_setting = {
-        "FEEDS": {
-            "category.csv": {"format": "csv"}        
+        "FEEDS": { 
+            Filenames.CATEGORIES_CSV.value: {"format": "csv"}, #"overwrite" : True },
+            Filenames.CATEGORIES_JSON.value: {"format": "json"} #, "overwrite" : True }
         }
     }
+
+    def create_category_id(self, url:str) -> str:
+        end_url = url.removeprefix(self.start_urls[0])
+        proto_id = items.CategoryItem.CATEGORY_PREFIX
+        for name in end_url.split('/') :
+            if name != "" :
+                proto_id += "_" + name
+
+        return proto_id
     
     def parse(self, response):
         """
@@ -53,9 +65,9 @@ class CategorySpider(scrapy.Spider):
             current_category = items.CategoryItem()
             current_category['name'] = name
             current_category['url'] = url
-            current_category['unique_id'] = str(uuid.uuid4())  # Générer un identifiant unique
-            current_category['parent_category_id'] = "ROOT_CATEGORY"  # Catégorie principale (racine)
-            current_category['is_page_list'] = False  # Il ne s'agit pas d'une page de sous-catégorie
+            current_category['unique_id'] = self.create_category_id(url) # Générer un identifiant unique
+            current_category['parent_category_id'] = items.CategoryItem.CATEGORY_ROOT  # Catégorie principale (racine)
+            current_category['is_page_list'] = False # Il ne s'agit pas d'une page de sous-catégorie
 
             # Yields l'objet de la catégorie principale
             yield current_category
@@ -79,9 +91,9 @@ class CategorySpider(scrapy.Spider):
                 child_category = items.CategoryItem()
                 child_category['name'] = name
                 child_category['url'] = url
-                child_category['parent_category_id'] = parent_category['unique_id']  # Référence à la catégorie parent
-                child_category['unique_id'] = str(uuid.uuid4())  # Générer un identifiant unique
-                child_category['is_page_list'] = True  # Il s'agit d'une sous-catégorie
+                child_category['parent_category_id'] = parent_category['unique_id'] # Référence à la catégorie parent
+                child_category['unique_id'] = self.create_category_id(url)  # Générer un identifiant unique
+                child_category['is_page_list'] = True # Il s'agit d'une sous-catégorie
 
                 # Yields l'objet de la sous-catégorie
                 yield child_category

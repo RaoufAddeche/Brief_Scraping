@@ -1,6 +1,8 @@
 import scrapy
 import parquet_scraper.items as items
 import json
+import os
+from filenamesenum import Filenames
 
 class ProductSpider(scrapy.Spider):
     """
@@ -20,7 +22,7 @@ class ProductSpider(scrapy.Spider):
     allowed_domains = ["boutique-parquet.com"]
 
     custom_setting = {
-        "FEEDS": { "products.csv": {"format": "csv"} }
+        "FEEDS": { Filenames.PRODUCTS_CSV: {"format": "csv"} }
     }
 
     def start_requests(self):
@@ -51,6 +53,7 @@ class ProductSpider(scrapy.Spider):
                 callback=self.parse
             )
         
+
     def load_categories(self):
         """
         Charge les données de catégorie à partir d'un fichier JSON. Cette fonction ouvre le fichier "category.json" et renvoie son contenu sous forme de structure de données Python.
@@ -61,10 +64,10 @@ class ProductSpider(scrapy.Spider):
         Returns:
             list: Une liste d'objets de catégorie chargés depuis le fichier JSON.
         """
-
         # Ouvrir et charger les données JSON depuis le fichier "category.json"
-        with open("category.json", "r") as f:
-            return json.load(f)
+        with open(Filenames.CATEGORIES_JSON, "r") as reading_file:
+            return json.load(reading_file)
+
 
     def parse(self, response):
         """
@@ -125,7 +128,7 @@ class ProductSpider(scrapy.Spider):
         # Extraire l'identifiant unique (SKU) du produit
         product_view = response.css("div .product-view")
         sku_view = product_view.css("div .sku")
-        product_item['unique_id'] = sku_view.css("div.value ::text").get()
+        product_item['stock_keeping_unit'] = sku_view.css("div.value ::text").get()
 
         # Récupérer le prix promotionnel
         promotional_price = response.css("span.special-price span.price-wrapper span.price ::text").get()
