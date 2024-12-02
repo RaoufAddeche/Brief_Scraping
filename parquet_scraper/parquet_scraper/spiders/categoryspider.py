@@ -107,7 +107,7 @@ class CategorySpider(scrapy.Spider):
                 
                 # Créer un objet CategoryItem pour la sous-catégorie
                 child_category = items.CategoryItem()
-                child_category['name'] = name
+                child_category['name'] = str(name).replace(',', '.')
                 child_category['url'] = url
                 child_category['parent_category_id'] = parent_category['unique_id']  # Référence à la catégorie parent
                 child_category['unique_id'] = self.create_category_id(url)  # Générer un identifiant unique
