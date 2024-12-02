@@ -1,4 +1,3 @@
-import os
 from scrapy.cmdline import execute
 from filenamesenum import Filenames
 
@@ -14,9 +13,9 @@ try:
     #     'scrapy',
     #     'crawl',
     #     categoryspider
-    #     #'-O',
-    #     #Filenames.CATEGORIES_CSV.value
-    #     #Filenames.CATEGORIES_JSON.value
+    #     # '-O',
+    #     # Filenames.CATEGORIES_CSV.value
+    #     # Filenames.CATEGORIES_JSON.value
     #     # '-s',
     #     # f'LOG_FILE={log_file}'
     # ])
@@ -31,8 +30,8 @@ try:
         productspider
         # '-O',
         # Filenames.PRODUCTS_CSV.value
-        #'-O',
-        #'products.csv'
+        # '-O',
+        # 'products.csv'
         # '-s',
         # f'LOG_FILE={log_file}'
     ])
