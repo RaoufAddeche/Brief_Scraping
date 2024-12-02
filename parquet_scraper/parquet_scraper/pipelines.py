@@ -50,7 +50,7 @@ class ParquetScraperPipeline:
         # Si l'identifiant unique a déjà été traité, lever une exception pour signaler un doublon
         if unique_id in self.deja_vu:
             print(f"Doublon trouvé : {unique_id}")
-            #raise ValueError(f"Doublon trouvé : {unique_id}")
+            raise ValueError(f"Doublon trouvé : {unique_id}")
         
         # Ajouter l'identifiant unique pour éviter les doublons à l'avenir
         self.deja_vu.add(unique_id)
