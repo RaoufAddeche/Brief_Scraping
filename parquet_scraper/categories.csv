@@ -1,0 +1,108 @@
+is_page_list,name,parent_category_id,unique_id,url
+False,Parquets,MENU_CATEGORY,CATEGORY_parquets,https://boutique-parquet.com/parquets
+True,Bois exotiques,CATEGORY_parquets,CATEGORY_parquets_parquets-massifs-exotiques,https://boutique-parquet.com/parquets/parquets-massifs-exotiques
+True,Massif Chêne,CATEGORY_parquets,CATEGORY_parquets_parquets-massifs-chene,https://boutique-parquet.com/parquets/parquets-massifs-chene
+True,Contrecollés vieillis,CATEGORY_parquets,CATEGORY_parquets_parquets-contrecolles-vieillis,https://boutique-parquet.com/parquets/parquets-contrecolles-vieillis
+True,Contrecollés classiques,CATEGORY_parquets,CATEGORY_parquets_parquets-contrecolles-classiques,https://boutique-parquet.com/parquets/parquets-contrecolles-classiques
+True,Bâtons Rompus / Point de Hongrie,CATEGORY_parquets,CATEGORY_parquets_parquets-batons-rompus-point-de-hongrie,https://boutique-parquet.com/parquets/parquets-batons-rompus-point-de-hongrie
+False,Sols stratifiés,MENU_CATEGORY,CATEGORY_sols-stratifies,https://boutique-parquet.com/sols-stratifies
+True,Lames parquets classiques,CATEGORY_sols-stratifies,CATEGORY_sols-stratifies_lames-parquets-classiques,https://boutique-parquet.com/sols-stratifies/lames-parquets-classiques
+True,Chevrons,CATEGORY_sols-stratifies,CATEGORY_sols-stratifies_chevrons,https://boutique-parquet.com/sols-stratifies/chevrons
+True,Grandes lames parquet,CATEGORY_sols-stratifies,CATEGORY_sols-stratifies_grandes-lames-parquet,https://boutique-parquet.com/sols-stratifies/grandes-lames-parquet
+True,Dalles imitation pierre,CATEGORY_sols-stratifies,CATEGORY_sols-stratifies_dalles-stratifies-imitation-pierre,https://boutique-parquet.com/sols-stratifies/dalles-stratifies-imitation-pierre
+True,Niveau de réalisme exceptionnel,CATEGORY_sols-stratifies,CATEGORY_sols-stratifies_niveau-de-realisme-exceptionnel,https://boutique-parquet.com/sols-stratifies/niveau-de-realisme-exceptionnel
+False,Sols PVC / Vinyles,MENU_CATEGORY,CATEGORY_sols-pvc-vinyles,https://boutique-parquet.com/sols-pvc-vinyles
+True,Lame parquet clic,CATEGORY_sols-pvc-vinyles,CATEGORY_sols-pvc-vinyles_lames-pvc-clipsables-parquet,https://boutique-parquet.com/sols-pvc-vinyles/lames-pvc-clipsables-parquet
+True,Lames parquet bâtons rompus clic,CATEGORY_sols-pvc-vinyles,CATEGORY_sols-pvc-vinyles_lames-pvc-clipsables-baton-rompu,https://boutique-parquet.com/sols-pvc-vinyles/lames-pvc-clipsables-baton-rompu
+True,Dalle imitation béton / carrelage clic,CATEGORY_sols-pvc-vinyles,CATEGORY_sols-pvc-vinyles_dalles-pvc-clipsables-beton-carrelage-clic,https://boutique-parquet.com/sols-pvc-vinyles/dalles-pvc-clipsables-beton-carrelage-clic
+True,Vinyle Plombant,CATEGORY_sols-pvc-vinyles,CATEGORY_sols-pvc-vinyles_vinyle-plombant,https://boutique-parquet.com/sols-pvc-vinyles/vinyle-plombant
+False,Terrasses,MENU_CATEGORY,CATEGORY_terrasses,https://boutique-parquet.com/terrasses
+True,Bandes d'étanchéité,CATEGORY_terrasses,CATEGORY_terrasses_bande-d-etancheite,https://boutique-parquet.com/terrasses/bande-d-etancheite
+True,Cales pour Lambourdes,CATEGORY_terrasses,CATEGORY_terrasses_cales-pour-lambourdes,https://boutique-parquet.com/terrasses/cales-pour-lambourdes
+True,Espaceurs et gabarits,CATEGORY_terrasses,CATEGORY_terrasses_espaceurs-et-gabarits,https://boutique-parquet.com/terrasses/espaceurs-et-gabarits
+True,Feutre Géotextile,CATEGORY_terrasses,CATEGORY_terrasses_feutre-geotextile,https://boutique-parquet.com/terrasses/feutre-geotextile
+True,Fixations Terrasse,CATEGORY_terrasses,CATEGORY_terrasses_fixations-terrasse,https://boutique-parquet.com/terrasses/fixations-terrasse
+True,Forets et Embouts,CATEGORY_terrasses,CATEGORY_terrasses_forets-et-embouts,https://boutique-parquet.com/terrasses/forets-et-embouts
+True,Gazon synthetique,CATEGORY_terrasses,CATEGORY_terrasses_gazon-synthetique,https://boutique-parquet.com/terrasses/gazon-synthetique
+True,Lames Terrasse Bois Composite,CATEGORY_terrasses,CATEGORY_terrasses_lames-terrasse-bois-composite,https://boutique-parquet.com/terrasses/lames-terrasse-bois-composite
+True,Luminaires extérieurs terrasses et jardins,CATEGORY_terrasses,CATEGORY_terrasses_luminaires-exterieurs-terrasses-et-jardins,https://boutique-parquet.com/terrasses/luminaires-exterieurs-terrasses-et-jardins
+True,Plots Pour Terrasse,CATEGORY_terrasses,CATEGORY_terrasses_plots-pour-terrasse,https://boutique-parquet.com/terrasses/plots-pour-terrasse
+True,Redresseurs de Lames,CATEGORY_terrasses,CATEGORY_terrasses_redresseur-de-lames,https://boutique-parquet.com/terrasses/redresseur-de-lames
+True,Vis Terrasse Inox ,CATEGORY_terrasses,CATEGORY_terrasses_vis-terrasse-inox-spax,https://boutique-parquet.com/terrasses/vis-terrasse-inox-spax
+False,Produits d'entretien,MENU_CATEGORY,CATEGORY_entretien,https://boutique-parquet.com/entretien
+True,Bardage,CATEGORY_entretien,CATEGORY_entretien_bardage,https://boutique-parquet.com/entretien/bardage
+True,Béton ciré,CATEGORY_entretien,CATEGORY_entretien_beton-cire,https://boutique-parquet.com/entretien/beton-cire
+True,Décapants,CATEGORY_entretien,CATEGORY_entretien_decapants,https://boutique-parquet.com/entretien/decapants
+True,Mobilier - Salon de jardin,CATEGORY_entretien,CATEGORY_entretien_mobilier-salon-de-jardin,https://boutique-parquet.com/entretien/mobilier-salon-de-jardin
+True,Murs et Façades,CATEGORY_entretien,CATEGORY_entretien_murs-et-facades,https://boutique-parquet.com/entretien/murs-et-facades
+True,Panneaux solaires,CATEGORY_entretien,CATEGORY_entretien_entretien-panneaux-solaires,https://boutique-parquet.com/entretien/entretien-panneaux-solaires
+True,Parquet ciré,CATEGORY_entretien,CATEGORY_entretien_parquet-cire,https://boutique-parquet.com/entretien/parquet-cire
+True,Parquet huilé,CATEGORY_entretien,CATEGORY_entretien_parquet-huile,https://boutique-parquet.com/entretien/parquet-huile
+True,Parquet vitrifié,CATEGORY_entretien,CATEGORY_entretien_parquet-vitrifie,https://boutique-parquet.com/entretien/parquet-vitrifie
+True,Produits BIO,CATEGORY_entretien,CATEGORY_entretien_produits-entretien-bio,https://boutique-parquet.com/entretien/produits-entretien-bio
+True,Sols. Dallages et Carrelages,CATEGORY_entretien,CATEGORY_entretien_sols-dallages-carrelages,https://boutique-parquet.com/entretien/sols-dallages-carrelages
+True,Sols stratifié - Vinyl,CATEGORY_entretien,CATEGORY_entretien_sols-stratifie-vinyl,https://boutique-parquet.com/entretien/sols-stratifie-vinyl
+True,Terrasse,CATEGORY_entretien,CATEGORY_entretien_terrasse,https://boutique-parquet.com/entretien/terrasse
+True,Toitures,CATEGORY_entretien,CATEGORY_entretien_toitures,https://boutique-parquet.com/entretien/toitures
+True,Toutes surfaces,CATEGORY_entretien,CATEGORY_entretien_toutes-surfaces,https://boutique-parquet.com/entretien/toutes-surfaces
+False,Produits de Finition,MENU_CATEGORY,CATEGORY_finition,https://boutique-parquet.com/finition
+True,Béton - Pavés briques,CATEGORY_finition,CATEGORY_finition_beton-paves-briques,https://boutique-parquet.com/finition/beton-paves-briques
+True,Huiles pour parquet,CATEGORY_finition,CATEGORY_finition_huiles-pour-parquets,https://boutique-parquet.com/finition/huiles-pour-parquets
+True,Huile Terrasse Bardage,CATEGORY_finition,CATEGORY_finition_huile-terrasse-bardage,https://boutique-parquet.com/finition/huile-terrasse-bardage
+True,Lasures,CATEGORY_finition,CATEGORY_finition_lasures,https://boutique-parquet.com/finition/lasures
+True,Peinture Tous Bois Environnement,CATEGORY_finition,CATEGORY_finition_peintures-tous-bois-environnement,https://boutique-parquet.com/finition/peintures-tous-bois-environnement
+True,Peintures sol,CATEGORY_finition,CATEGORY_finition_peintures-sol,https://boutique-parquet.com/finition/peintures-sol
+True,Parquet ciré,CATEGORY_finition,CATEGORY_finition_parquet-cire,https://boutique-parquet.com/finition/parquet-cire
+True,Peintures tableau d'école,CATEGORY_finition,CATEGORY_finition_peintures-tableau-d-ecole,https://boutique-parquet.com/finition/peintures-tableau-d-ecole
+True,Dorure Extérieure-Intérieure,CATEGORY_finition,CATEGORY_finition_dorure-exterieur-interieur,https://boutique-parquet.com/finition/dorure-exterieur-interieur
+True,Peinture rénovation multi supports,CATEGORY_finition,CATEGORY_finition_peinture-renovation-multi-supports,https://boutique-parquet.com/finition/peinture-renovation-multi-supports
+True,Primaire fond dur,CATEGORY_finition,CATEGORY_finition_primaire-fond-dur,https://boutique-parquet.com/finition/primaire-fond-dur
+True,Teintes parquets - boiseries,CATEGORY_finition,CATEGORY_finition_teintes-parquets-boiseries,https://boutique-parquet.com/finition/teintes-parquets-boiseries
+True,Vernis bois,CATEGORY_finition,CATEGORY_finition_vernis-bois,https://boutique-parquet.com/finition/vernis-bois
+True,Vitrificateurs et Fonds durs,CATEGORY_finition,CATEGORY_finition_vitrificateurs,https://boutique-parquet.com/finition/vitrificateurs
+True,Mastic - Pâtes à Bois,CATEGORY_finition,CATEGORY_finition_mastic-pates-a-bois,https://boutique-parquet.com/finition/mastic-pates-a-bois
+True,Produits BIO,CATEGORY_finition,CATEGORY_finition_produits-de-finition-bio,https://boutique-parquet.com/finition/produits-de-finition-bio
+False,Marques,MENU_CATEGORY,CATEGORY_marques,https://boutique-parquet.com/marques
+True,Algimouss,CATEGORY_marques,CATEGORY_marques_algimouss,https://boutique-parquet.com/marques/algimouss
+True,ALSAPAN / La Parqueterie Berrichonne,CATEGORY_marques,CATEGORY_marques_alsapan-parqueterie-berrichonne,https://boutique-parquet.com/marques/alsapan-parqueterie-berrichonne
+True,Biorox,CATEGORY_marques,CATEGORY_marques_biorox,https://boutique-parquet.com/marques/biorox
+True,Blanchon,CATEGORY_marques,CATEGORY_marques_blanchon,https://boutique-parquet.com/marques/blanchon
+True,Bona,CATEGORY_marques,CATEGORY_marques_bona,https://boutique-parquet.com/marques/bona
+True,Cabbani,CATEGORY_marques,CATEGORY_marques_cabbani,https://boutique-parquet.com/marques/cabbani
+True,Chêne de l'Est,CATEGORY_marques,CATEGORY_marques_chene-de-l-est,https://boutique-parquet.com/marques/chene-de-l-est
+True,Ciranova,CATEGORY_marques,CATEGORY_marques_ciranova,https://boutique-parquet.com/marques/ciranova
+True,Clean green,CATEGORY_marques,CATEGORY_marques_clean-green,https://boutique-parquet.com/marques/clean-green
+True,Emfi,CATEGORY_marques,CATEGORY_marques_emfi,https://boutique-parquet.com/marques/emfi
+True,Fiberdeck,CATEGORY_marques,CATEGORY_marques_fiberdeck,https://boutique-parquet.com/marques/fiberdeck
+True,Garden lights,CATEGORY_marques,CATEGORY_marques_garden-lights-luminaires-exterieurs-12-v,https://boutique-parquet.com/marques/garden-lights-luminaires-exterieurs-12-v
+True,Hapax,CATEGORY_marques,CATEGORY_marques_hapax,https://boutique-parquet.com/marques/hapax
+True,Haro,CATEGORY_marques,CATEGORY_marques_haro,https://boutique-parquet.com/marques/haro
+True,Inoxmare,CATEGORY_marques,CATEGORY_marques_inoxmare,https://boutique-parquet.com/marques/inoxmare
+True,Jouplast,CATEGORY_marques,CATEGORY_marques_jouplast,https://boutique-parquet.com/marques/jouplast
+True,Lamett,CATEGORY_marques,CATEGORY_marques_lamett,https://boutique-parquet.com/marques/lamett
+True,L'outil parfait,CATEGORY_marques,CATEGORY_marques_l-outil-parfait,https://boutique-parquet.com/marques/l-outil-parfait
+True,Objectflor,CATEGORY_marques,CATEGORY_marques_objectflor-expona-design-simplay-acoustic-clic-19db,https://boutique-parquet.com/marques/objectflor-expona-design-simplay-acoustic-clic-19db
+True,Quick Step,CATEGORY_marques,CATEGORY_marques_quick-step,https://boutique-parquet.com/marques/quick-step
+True,Rubio,CATEGORY_marques,CATEGORY_marques_rubio-monocoat,https://boutique-parquet.com/marques/rubio-monocoat
+True,Sogal,CATEGORY_marques,CATEGORY_marques_sogal,https://boutique-parquet.com/marques/sogal
+True,Solidfloor,CATEGORY_marques,CATEGORY_marques_solidfloor,https://boutique-parquet.com/marques/solidfloor
+True,Spax,CATEGORY_marques,CATEGORY_marques_spax,https://boutique-parquet.com/marques/spax
+False,Accessoires,MENU_CATEGORY,CATEGORY_accessoires,https://boutique-parquet.com/accessoires
+True,Accessoires Luminaires,CATEGORY_accessoires,CATEGORY_accessoires_accessoires-luminaires,https://boutique-parquet.com/accessoires/accessoires-luminaires
+True,Accessoires Terrasses,CATEGORY_accessoires,CATEGORY_accessoires_accessoires-terrasses,https://boutique-parquet.com/accessoires/accessoires-terrasses
+True,Barres de seuil,CATEGORY_accessoires,CATEGORY_accessoires_barres-de-seuil,https://boutique-parquet.com/accessoires/barres-de-seuil
+True,Brosses & Spalters,CATEGORY_accessoires,CATEGORY_accessoires_brosses-spalters,https://boutique-parquet.com/accessoires/brosses-spalters
+True,Colles & Mastics,CATEGORY_accessoires,CATEGORY_accessoires_colles-mastics,https://boutique-parquet.com/accessoires/colles-mastics
+True,Contre-plinthes,CATEGORY_accessoires,CATEGORY_accessoires_contres-plinthes,https://boutique-parquet.com/accessoires/contres-plinthes
+True,Lambourdes & Tasseaux,CATEGORY_accessoires,CATEGORY_accessoires_lambourdes-tasseaux,https://boutique-parquet.com/accessoires/lambourdes-tasseaux
+True,Nez de marche,CATEGORY_accessoires,CATEGORY_accessoires_nez-de-marche,https://boutique-parquet.com/accessoires/nez-de-marche
+True,Outillage Parquet,CATEGORY_accessoires,CATEGORY_accessoires_outillage-parquet,https://boutique-parquet.com/accessoires/outillage-parquet
+True,Plinthes,CATEGORY_accessoires,CATEGORY_accessoires_plinthes,https://boutique-parquet.com/accessoires/plinthes
+True,Plinthes hydrofuges,CATEGORY_accessoires,CATEGORY_accessoires_plinthes-hydrofuges,https://boutique-parquet.com/accessoires/plinthes-hydrofuges
+True,Profilés,CATEGORY_accessoires,CATEGORY_accessoires_profiles,https://boutique-parquet.com/accessoires/profiles
+True,Quarts de rond,CATEGORY_accessoires,CATEGORY_accessoires_quarts-de-rond,https://boutique-parquet.com/accessoires/quarts-de-rond
+True,Rouleaux & Montures,CATEGORY_accessoires,CATEGORY_accessoires_rouleaux-montures,https://boutique-parquet.com/accessoires/rouleaux-montures
+True,Sous-couches,CATEGORY_accessoires,CATEGORY_accessoires_sous-couches,https://boutique-parquet.com/accessoires/sous-couches
+True,Sous-profilés INCIZO,CATEGORY_accessoires,CATEGORY_accessoires_sous-profile-incizo,https://boutique-parquet.com/accessoires/sous-profile-incizo
+True,Vis façades,CATEGORY_accessoires,CATEGORY_accessoires_vis-facades,https://boutique-parquet.com/accessoires/vis-facades
+True,Accessoires de nettoyage pour le parquet,CATEGORY_accessoires,CATEGORY_accessoires_accessoires-de-nettoyage-pour-le-parquet,https://boutique-parquet.com/accessoires/accessoires-de-nettoyage-pour-le-parquet
