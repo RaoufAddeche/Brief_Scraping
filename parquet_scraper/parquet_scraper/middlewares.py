@@ -21,11 +21,12 @@ class ParquetScraperSpiderMiddleware:
         crawler.signals.connect(s.spider_opened, signal=signals.spider_opened)
         return s
 
-    def process_spider_input(self, response, spider):
+    def process_spider_input(self, response, spider):       
         # Called for each response that goes through the spider
         # middleware and into the spider.
 
         # Should return None or raise an exception.
+        number = 500
         return None
 
     def process_spider_output(self, response, result, spider):
@@ -33,14 +34,16 @@ class ParquetScraperSpiderMiddleware:
         # it has processed the response.
 
         # Must return an iterable of Request, or item objects.
+        number = 501
         for i in result:
             yield i
 
-    def process_spider_exception(self, response, exception, spider):
+    def process_spider_exception(self, response, exception, spider):     
         # Called when a spider or process_spider_input() method
         # (from other spider middleware) raises an exception.
 
         # Should return either None or an iterable of Request or item objects.
+        number =0
         pass
 
     def process_start_requests(self, start_requests, spider):
@@ -49,10 +52,12 @@ class ParquetScraperSpiderMiddleware:
         # that it doesn’t have a response associated.
 
         # Must return only requests (not items).
+        number = 200
         for r in start_requests:
             yield r
 
     def spider_opened(self, spider):
+        number = 101
         spider.logger.info("Spider opened: %s" % spider.name)
 
 
@@ -78,15 +83,17 @@ class ParquetScraperDownloaderMiddleware:
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
+        number = 300
         return None
 
-    def process_response(self, request, response, spider):
+    def process_response(self, request, response, spider):       
         # Called with the response returned from the downloader.
 
         # Must either;
         # - return a Response object
         # - return a Request object
         # - or raise IgnoreRequest
+        number = 400
         return response
 
     def process_exception(self, request, exception, spider):
@@ -97,9 +104,11 @@ class ParquetScraperDownloaderMiddleware:
         # - return None: continue processing this exception
         # - return a Response object: stops process_exception() chain
         # - return a Request object: stops process_exception() chain
+        number =0
         pass
 
     def spider_opened(self, spider):
+        number = 100
         spider.logger.info("Spider opened: %s" % spider.name)
 
     
@@ -143,7 +152,7 @@ class RandomUserAgentMiddleware:
         Returns:
             None
         """
-
+        number = 301
         # Choisir un User-Agent aléatoire parmi la liste des User-Agents disponibles
         user_agent = random.choice(self.user_agents)
 
@@ -155,3 +164,14 @@ class RandomUserAgentMiddleware:
 
         # Retourner None pour indiquer que la requête est prête à être envoyée
         return None
+    
+    def process_exception(self, request, exception, spider):
+        # Called when a download handler or a process_request()
+        # (from other downloader middleware) raises an exception.
+
+        # Must either:
+        # - return None: continue processing this exception
+        # - return a Response object: stops process_exception() chain
+        # - return a Request object: stops process_exception() chain
+        number =0
+        pass

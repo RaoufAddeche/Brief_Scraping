@@ -1,5 +1,6 @@
 import scrapy
 
+
 class CategoryItem(scrapy.Item):
     """
     Représente une catégorie dans le cadre du scraping, avec des informations telles que :

@@ -1,6 +1,11 @@
+#Define your item pipelines here
+
+#Don't forget to add your pipeline to the ITEM_PIPELINES setting
+#See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+
+#useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 import scrapy
-
 
 class ParquetScraperPipeline:
     """
@@ -33,11 +38,14 @@ class ParquetScraperPipeline:
             item: L'item après traitement.
         """
     
+        is_category = bool( SpecificFields.CATEGORY_SPECIFIC_FIELD.value in item.fields )
+        if is_category :
+            return item
+
         # Adapter l'item pour une manipulation facile
         adapter = ItemAdapter(item)
 
-        # Si l'item est une catégorie, on le retourne sans modification
-        if adapter.is_item_class(CategoryItem):
+        if adapter.is_item_class(CategoryItem) :
             return item
 
         # Vérifier les doublons en utilisant 'unique_id'
@@ -71,10 +79,10 @@ class ParquetScraperPipeline:
     
 #______________________________________________________________________________
 #
-# region SaveToSQLitePipeline
+# region SaveToSQLite
 #______________________________________________________________________________
 
-from filenamesenum import Filenames
+from filenamesenum import Filenames, SpecificFields
 from items import CategoryItem, ProductItem
 from typing import cast
 import datetime as dt
@@ -83,15 +91,17 @@ import sqlmodel as sm
 from sqlalchemy import Engine
 import os
 import init_db as idb
-import models
-
+import models as dbmodel
 
 class SaveToSQLitePipeline:
     """
     Pipeline pour enregistrer les éléments extraits par le scraper dans une base de données SQLite.
     Cette pipeline gère la création de la base de données et l'ajout des catégories et produits extraits.
     """
-
+    #__________________________________________________________________________
+    #
+    # region init
+    #__________________________________________________________________________
     def __init__(self):
         """
         Initialise la connexion à la base de données SQLite.
@@ -114,20 +124,33 @@ class SaveToSQLitePipeline:
         if need_creation:
             echo_object = sm.SQLModel.metadata.create_all(self.engine)
 
-        # Ajout d'une catégorie racine dans la base de données si nécessaire
+        self.need_new_category_root = True
+
+    #__________________________________________________________________________
+    #
+    # region category_root
+    #__________________________________________________________________________
+    def create_new_category_root(self) :
+        # Ajout d'une catégorie racine dans la base de données à chaque nouvel import
         with sm.Session(self.engine) as session:
-            root_category = models.Category(
+            root_category = dbmodel.Category(
                 name="Menu du site",
                 url="https://boutique-parquet.com",
                 is_page_list=False,
                 url_based_id=CategoryItem.CATEGORY_ROOT,
                 parent_url_based_id=None,
-                date=dt.datetime.now()
-            )
+                date=dt.datetime.now())
             
             session.add(root_category)
             session.commit()
+        
+        self.need_new_category_root = False
 
+
+    #__________________________________________________________________________
+    #
+    # region process_item
+    #__________________________________________________________________________
     def process_item(self, item, spider):
         """
         Traite un item en fonction de son type (Catégorie ou Produit).
@@ -141,20 +164,31 @@ class SaveToSQLitePipeline:
         Returns:
             item: L'item après traitement.
         """
+
+        is_category = bool( SpecificFields.CATEGORY_SPECIFIC_FIELD.value in item.fields )
+        is_product = bool( SpecificFields.PRODUCT_SPECIFIC_FIELD.value in item.fields ) 
+
         # Adapter l'item pour une manipulation facile
         adapter = ItemAdapter(item)
-
+        
         # Si l'item est une catégorie, traiter avec la méthode process_category
-        if "is_page_list" in item.fields :
+        if is_category :
+            if self.need_new_category_root :
+                self.create_new_category_root()
+
             return self.process_category(adapter, spider)
         
         # Si l'item est un produit, traiter avec la méthode process_product
-        elif adapter.is_item_class(ProductItem):
+        elif adapter.is_item_class(ProductItem) :
             return self.process_product(adapter, spider)
         
         # Si l'item n'est ni une catégorie ni un produit, le retourner tel quel
         return item
-
+    
+    #__________________________________________________________________________
+    #
+    # region process_category
+    #__________________________________________________________________________
     def process_category(self, adapter: ItemAdapter, spider):
         """
         Traite une catégorie et l'enregistre dans la base de données SQLite.
@@ -170,9 +204,7 @@ class SaveToSQLitePipeline:
         # Extraction des informations de la catégorie
         item_name = str(adapter["name"])
         item_url = str(adapter["url"])
-        truc = adapter["is_page_list"]
-        item_is_page_list = bool(truc)
-        #is_page_list
+        item_is_page_list = adapter["is_page_list"]
 
         item_url_based_id = str(adapter["unique_id"])
         item_parent_url_based_id = str(adapter["parent_category_id"])
@@ -182,7 +214,7 @@ class SaveToSQLitePipeline:
 
         # Recherche de la catégorie parente dans la base de données
         with sm.Session(self.engine) as session:
-            statement = sm.select(models.Category).where(models.Category.url_based_id == item_parent_url_based_id)  
+            statement = sm.select(dbmodel.Category).where(dbmodel.Category.url_based_id == item_parent_url_based_id)  
             results = session.exec(statement)
             result_categories = list(results)
             
@@ -198,7 +230,7 @@ class SaveToSQLitePipeline:
                 return adapter.item
 
             # Ajouter la nouvelle catégorie dans la base de données
-            new_category = models.Category(
+            new_category = dbmodel.Category(
                 name=item_name,
                 url=item_url,
                 is_page_list=item_is_page_list,
@@ -211,7 +243,11 @@ class SaveToSQLitePipeline:
             session.commit()
 
         return adapter.item
-
+    
+    #__________________________________________________________________________
+    #
+    # region process_product
+    #__________________________________________________________________________
     def process_product(self, adapter: ItemAdapter, spider):
         """
         Traite un produit et l'enregistre dans la base de données SQLite.
@@ -234,20 +270,17 @@ class SaveToSQLitePipeline:
         # Extraction des champs de l'item
         for key in adapter.item.keys():
             match key:
-                case "name":
-                    item_name = adapter["name"]
-                case "url":
-                    item_url = adapter["url"]
-                case "stock_keeping_unit":
-                    item_sku = adapter["stock_keeping_unit"]
-                case "parent_category_id":
-                    adapter["parent_category_id"] = item_category
-                case other_key:
-                    item_other_fields[other_key] = adapter[other_key]
+                case "name": item_name = str(adapter["name"])
+                case "url": item_url = str(adapter["url"])
+                case "stock_keeping_unit": item_sku = str(adapter["stock_keeping_unit"])
+                case "parent_category_id": item_category = str(adapter["parent_category_id"])
+                case other_key: item_other_fields[other_key] = adapter[other_key]
+
+        max_date = dt.datetime(year=2024, month=1, day=1)
 
         # Recherche de la catégorie associée au produit
         with sm.Session(self.engine) as session:
-            statement = sm.select(models.Category).where(models.Category.url_based_id == item_category)
+            statement = sm.select(dbmodel.Category).where(dbmodel.Category.url_based_id == item_category)
             results = session.exec(statement)
             result_categories = list(results)
             
@@ -261,6 +294,74 @@ class SaveToSQLitePipeline:
             # Si aucune catégorie parente n'est trouvée, ne rien faire
             if parent_category is None:
                 return adapter.item
+            
+            # Create product if it does not exist
+            statement = sm.select(dbmodel.Product).where(dbmodel.Product.stock_keeping_unit == item_sku)
+            results = session.exec(statement)
+            current_product = results.one_or_none()
+            if current_product == None :
+                current_product = dbmodel.Product(
+                    name = item_name,
+                    url = item_url,
+                    stock_keeping_unit = item_sku
+                )
+                session.add(current_product)
+                #commit to get the id_product
+                session.commit()
+            else : 
+                current_product = cast(dbmodel.Product, current_product)
+            
+            # Update product infos
+            statement = sm.select(dbmodel.ProductInfo).where(dbmodel.ProductInfo.id_product == current_product.id_product)
+            results = session.exec(statement)
+            other_fields = list(results)
+            if len(other_fields) == 0 :
+                for other_key, other_value in item_other_fields.items() :
+                    additional_field = dbmodel.ProductInfo (
+                        id_product = current_product.id_product,
+                        field_name = other_key,
+                        field_value = str(other_value) 
+                    )
+                    session.add(additional_field)
+            else :
+                other_fields = cast (list[dbmodel.ProductInfo], other_fields)
+                for other_key, other_value in item_other_fields.items() :
+                    db_fields =  list(filter( lambda of : of.field_name == other_key, other_fields))
+                    if len(db_fields) == 0 :
+                        additional_field = dbmodel.ProductInfo (
+                            id_product = current_product.id_product,
+                            field_name = other_key,
+                            field_value = str(other_value) 
+                        )
+                        session.add(additional_field)
+                    else :
+                        # no modification : once a field is added for this product,
+                        # it is not updated, even if the price changes depending on its category
+                        pass
+
+            # Update category reference
+            statement = sm.select(dbmodel.Category_Product).where(dbmodel.Category_Product.id_product == current_product.id_product)
+            results = session.exec(statement)
+            categories = list(results)
+            categories = cast(list[dbmodel.Category], categories)
+
+            not_added = True
+            for category in categories :
+                if category.id_category == parent_category.id_category :
+                    not_added = False
+                    break
+
+            if not_added :
+                link_product_category = dbmodel.Category_Product(
+                    id_product = current_product.id_product,
+                    id_category = parent_category.id_category
+                )
+                session.add(link_product_category)
+
+            session.commit()
+
 
         # Retourner l'item après traitement
         return adapter.item
+    
+    

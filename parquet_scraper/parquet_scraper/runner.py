@@ -6,7 +6,6 @@ from filenamesenum import Filenames
 categoryspider = "categoryspider"
 productspider = "productspider"
 
-
 try:
     
     # print(f"\nExecute spider : {categoryspider}\n")
@@ -14,11 +13,10 @@ try:
     # execute([
     #     'scrapy',
     #     'crawl',
-    #     categoryspider,
-    #     # '-O',
-    #     # Filenames.CATEGORIES_CSV.value
-    #     '-O',
-    #     Filenames.CATEGORIES_JSON.value
+    #     categoryspider
+    #     #'-O',
+    #     #Filenames.CATEGORIES_CSV.value
+    #     #Filenames.CATEGORIES_JSON.value
     #     # '-s',
     #     # f'LOG_FILE={log_file}'
     # ])
@@ -30,9 +28,9 @@ try:
     execute([ 
         'scrapy',
         'crawl',
-        productspider,
-        '-O',
-        Filenames.PRODUCTS_CSV.value
+        productspider
+        # '-O',
+        # Filenames.PRODUCTS_CSV.value
         #'-O',
         #'products.csv'
         # '-s',

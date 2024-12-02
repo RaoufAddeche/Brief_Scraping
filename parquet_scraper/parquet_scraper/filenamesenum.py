@@ -19,3 +19,7 @@ class Filenames(StrEnum):
     CATEGORIES_JSON = "categories.json" # Fichier JSON pour les catégories
     SQLITE_DB = "boutique_parquet_data.db" # Fichier de base de données SQLite pour stocker les données
 
+class SpecificFields(StrEnum):
+    CATEGORY_SPECIFIC_FIELD = "is_page_list"
+    PRODUCT_SPECIFIC_FIELD = "stock_keeping_unit"
+

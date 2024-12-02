@@ -15,8 +15,9 @@ SPIDER_MODULES = ["parquet_scraper.spiders"]
 NEWSPIDER_MODULE = "parquet_scraper.spiders"
 
 FEEDS = {
-   Filenames.CATEGORIES_CSV.value : {'format' : 'csv' }, 
-   Filenames.PRODUCTS_CSV.value: {"format": "csv"} 
+   #Filenames.CATEGORIES_CSV.value : {'format' : 'csv' }, 
+   #Filenames.CATEGORIES_JSON.value : {'format' : 'json' }, 
+   # Filenames.PRODUCTS_CSV.value: {"format": "csv"} 
 }
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -58,7 +59,7 @@ SPIDER_MIDDLEWARES = {
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
    "parquet_scraper.middlewares.ParquetScraperDownloaderMiddleware": 543,
-   'parquet_scraper.middlewares.RandomUserAgentMiddleware': 543,
+   'parquet_scraper.middlewares.RandomUserAgentMiddleware': 543
 }
 
 # Enable or disable extensions
@@ -70,8 +71,9 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   "parquet_scraper.pipelines.ParquetScraperPipeline": 300,
-   "parquet_scraper.pipelines.SaveToSQLitePipeline": 400
+   "parquet_scraper.pipelines.SaveToSQLitePipeline": 299,
+   "parquet_scraper.pipelines.ParquetScraperPipeline": 300
+   
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
