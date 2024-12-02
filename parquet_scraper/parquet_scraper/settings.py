@@ -7,7 +7,7 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-from filenamesenum import Filenames
+# from filenamesenum import Filenames
 
 BOT_NAME = "parquet_scraper"
 

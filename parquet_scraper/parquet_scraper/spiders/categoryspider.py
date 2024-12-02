@@ -1,7 +1,5 @@
 import scrapy
 import parquet_scraper.items as items
-import uuid
-from typing import cast
 from filenamesenum import Filenames
 
 class CategorySpider(scrapy.Spider):
@@ -12,7 +10,7 @@ class CategorySpider(scrapy.Spider):
         name (str): Le nom de l'araignée.
         allowed_domains (list): Les domaines que l'araignée est autorisée à explorer.
         start_urls (list): Les URL de départ pour le scraping.
-        custom_setting (dict): Paramètres personnalisés pour l'araignée, y compris le format de sortie.
+        custom_settings (dict): Paramètres personnalisés pour l'araignée, y compris le format de sortie.
 
     Méthodes:
         parse: Traite la réponse de la requête pour extraire les catégories et leurs sous-catégories, 
@@ -119,4 +117,4 @@ class CategorySpider(scrapy.Spider):
                 # Gérer la pagination pour les sous-catégories
                 next_page = response.css('a.next::attr(href)').get()
                 if next_page:
-                    yield response.follow(next_page, callback=self.parse) 
+                    yield response.follow(next_page, callback=self.parse)

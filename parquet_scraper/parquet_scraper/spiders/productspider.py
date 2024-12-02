@@ -1,7 +1,6 @@
 import scrapy
 import parquet_scraper.items as items
 import json
-import os
 from filenamesenum import Filenames
 
 class ProductSpider(scrapy.Spider):
