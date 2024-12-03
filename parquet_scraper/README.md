@@ -10,7 +10,7 @@
         source .venv/bin/activate
 
       installer les dépendances :
-         pip install requirements.txt
+         pip install -r requirements.txt
      
  lancement du projet :
    se placer dans le répertoire Brief_Scraping/parquet_scraper/parquet_scraper/spiders
