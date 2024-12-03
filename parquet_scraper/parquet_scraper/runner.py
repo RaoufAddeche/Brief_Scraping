@@ -13,11 +13,11 @@ try:
     #     'scrapy',
     #     'crawl',
     #     categoryspider
-    #     # '-O',
-    #     # Filenames.CATEGORIES_CSV.value
-    #     # Filenames.CATEGORIES_JSON.value
-    #     # '-s',
-    #     # f'LOG_FILE={log_file}'
+    # # #     # '-O',
+    # # #     # Filenames.CATEGORIES_CSV.value
+    # # #     # Filenames.CATEGORIES_JSON.value
+    # # #     # '-s',
+    # # #     # f'LOG_FILE={log_file}'
     # ])
 
     # print(f"\nExtraction {categoryspider} finish.\n")
@@ -28,12 +28,12 @@ try:
         'scrapy',
         'crawl',
         productspider
-        # '-O',
-        # Filenames.PRODUCTS_CSV.value
-        # '-O',
-        # 'products.csv'
-        # '-s',
-        # f'LOG_FILE={log_file}'
+    #     # '-O',
+    #     # Filenames.PRODUCTS_CSV.value
+    #     # '-O',
+    #     # 'products.csv'
+    #     # '-s',
+    #     # f'LOG_FILE={log_file}'
     ])
 
     print(f"\nExtraction {productspider} finish.\n")
